@@ -1,7 +1,5 @@
 
-
-
-
+/* footer for layout page */
 .footer {
     position: fixed;
     left: 0;
@@ -10,4 +8,17 @@
     background-color: black;
     color: white;
     text-align: center;
+}
+
+/* styling for password toggle icon */
+.password-container {
+    position: relative;
+}
+
+.password-icon-container {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+    cursor: pointer;
 }

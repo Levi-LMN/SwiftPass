@@ -6,7 +6,6 @@ $pageTitle = "Registration Form";
 ob_start();
 ?>
 
-
 <?php
 session_start();
 if (isset($_SESSION["user"])) {
@@ -14,84 +13,124 @@ if (isset($_SESSION["user"])) {
 }
 ?>
 
-<div >
-    <?php
-    if (isset($_POST["submit"])) {
-        $fullName = $_POST["fullname"];
-        $email = $_POST["email"];
-        $password = $_POST["password"];
-        $passwordRepeat = $_POST["repeat_password"];
 
-        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
 
-        $errors = array();
+<div class="container mt-5 d-flex justify-content-center align-items-center">
+    <div class="card shadow-lg p-3 mb-5 bg-white rounded" style="width: 600px;">
+        <div class="card-body">
+            <h5 class="card-title text-center mb-4">Registration Form</h5>
+            <?php
+            if (isset($_POST["submit"])) {
+                $first_name = $_POST["first_name"];
+                $last_name = $_POST["last_name"];
+                $email = $_POST["email"];
+                $password = $_POST["password"];
+                $passwordRepeat = $_POST["repeat_password"];
+                $role = $_POST["role"];
 
-        if (empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat)) {
-            array_push($errors,"All fields are required");
-        }
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            array_push($errors, "Email is not valid");
-        }
-        if (strlen($password)<8) {
-            array_push($errors,"Password must be at least 8 characters long");
-        }
-        if ($password!==$passwordRepeat) {
-            array_push($errors,"Password does not match");
-        }
-        require_once "database.php";
-        $sql = "SELECT * FROM users WHERE email = '$email'";
-        $result = mysqli_query($conn, $sql);
-        $rowCount = mysqli_num_rows($result);
-        if ($rowCount>0) {
-            array_push($errors,"Email already exists!");
-        }
-        if (count($errors)>0) {
-            foreach ($errors as  $error) {
-                echo "<div class='alert alert-danger'>$error</div>";
+                // Hash the password
+                $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+                $errors = array();
+
+                if (empty($first_name) OR empty($last_name) OR empty($email) OR empty($password) OR empty($passwordRepeat) OR empty($role)) {
+                    array_push($errors, "All fields are required");
+                }
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    array_push($errors, "Email is not valid");
+                }
+                if (strlen($password) < 8) {
+                    array_push($errors, "Password must be at least 8 characters long");
+                }
+                if ($password !== $passwordRepeat) {
+                    array_push($errors, "Password does not match");
+                }
+
+                require_once "database.php";
+                $sql = "SELECT * FROM users WHERE email = '$email'";
+                $result = mysqli_query($conn, $sql);
+                $rowCount = mysqli_num_rows($result);
+
+                if ($rowCount > 0) {
+                    array_push($errors, "Email already exists!");
+                }
+
+                if (count($errors) > 0) {
+                    foreach ($errors as $error) {
+                        echo "<div class='alert alert-danger'>$error</div>";
+                    }
+                } else {
+                    $sql = "INSERT INTO users (first_name, last_name, email, password, role) VALUES (?, ?, ?, ?, ?)";
+                    $stmt = mysqli_stmt_init($conn);
+                    $prepareStmt = mysqli_stmt_prepare($stmt, $sql);
+                    if ($prepareStmt) {
+                        mysqli_stmt_bind_param($stmt, "sssss", $first_name, $last_name, $email, $passwordHash, $role);
+                        mysqli_stmt_execute($stmt);
+                        echo "<div class='alert alert-success'>You are registered successfully, you can now login</div>";
+
+                        // Store success message in session
+                        $_SESSION["registration_success"] = "You are registered successfully";
+
+                        // Show success message using JavaScript alert
+                        echo "<script>alert('You are registered successfully. You can now login.');</script>";
+
+                        // Redirect to login page after a delay
+                        echo "<script>setTimeout(function(){ window.location.href = 'login.php'; }, 2000);</script>";
+
+                        exit(); // Make sure to exit after the header to prevent further execution
+                    } else {
+                        die("Something went wrong");
+                    }
+                }
             }
-        } else {
+            ?>
+            <form action="registration.php" method="post">
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                </div>
+                <div class="mb-3">
+                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                </div>
+                <div class="mb-3">
+                    <input type="email" class="form-control" name="email" placeholder="Email">
+                </div>
+                <div class="mb-3 password-container">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <div class="password-icon-container">
+                        <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <input type="password" class="form-control" id="repeat_password" name="repeat_password" placeholder="Repeat Password">
+                </div>
 
-            $sql = "INSERT INTO users (full_name, email, password) VALUES (?, ?, ?)";
-            $stmt = mysqli_stmt_init($conn);
-            $prepareStmt = mysqli_stmt_prepare($stmt,$sql);
-            if ($prepareStmt) {
-                mysqli_stmt_bind_param($stmt,"sss",$fullName, $email, $passwordHash);
-                mysqli_stmt_execute($stmt);
-                echo "<div class='alert alert-success'>You are registered successfully</div>";
 
-                // Store success message in session
-                $_SESSION["registration_success"] = "You are registered successfully";
 
-                // Redirect to login page
-                header("Location: login.php");
-                exit(); // Make sure to exit after the header to prevent further execution
-            } else {
-                die("Something went wrong");
-            }
-        }
-    }
-    ?>
-    <form action="registration.php" method="post">
-        <div >
-            <input type="text"  name="fullname" placeholder="Full Name:">
+
+                <div class="mb-3">
+                    <select class="form-select" name="role">
+                        <option value="admin">Admin</option>
+                        <option value="user">User</option>
+                    </select>
+                </div>
+                <div class="form-btn">
+                    <button type="submit" class="btn btn-primary btn-block" name="submit">Register</button>
+                </div>
+            </form>
+            <div class="mt-3 text-center">
+                <p>Already Registered? <a href="login.php">Login Here</a></p>
+            </div>
         </div>
-        <div >
-            <input type="email"  name="email" placeholder="Email:">
+        <div class="card-footer text-muted text-center">
+<!--           how we collect and store your data and by signing up you agree.. swiftpass-->
+            By signing up you agree to our <a href="http://example.com/">Terms of Service</a> and <a href="http://example.com/">Privacy Policy</a>
         </div>
-        <div >
-            <input type="password"  name="password" placeholder="Password:">
-        </div>
-        <div >
-            <input type="password"  name="repeat_password" placeholder="Repeat Password:">
-        </div>
-        <div class="form-btn">
-            <input type="submit"  value="Register" name="submit">
-        </div>
-    </form>
-    <div>
-        <div><p>Already Registered <a href="login.php">Login Here</a></p></div>
     </div>
 </div>
+
+
+
+
 
 <?php
 // Get the buffered content and assign it to $content

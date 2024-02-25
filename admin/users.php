@@ -39,8 +39,10 @@ $result = mysqli_query($conn, $sql);
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Full Name</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
                         <th>Email</th>
+                        <th>Role</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -49,8 +51,10 @@ $result = mysqli_query($conn, $sql);
         while ($row = mysqli_fetch_assoc($result)) {
             echo "<tr>
                     <td>{$row['id']}</td>
-                    <td>{$row['full_name']}</td>
+                    <td>{$row['first_name']}</td>
+                    <td>{$row['last_name']}</td>
                     <td>{$row['email']}</td>
+                    <td>{$row['role']}</td>
                     <td>
                         <a href='?delete_user={$row['id']}' class='btn btn-danger btn-sm'>Delete</a>
                     </td>

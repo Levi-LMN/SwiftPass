@@ -8,6 +8,8 @@ $pages = [
     'Home' => '/',
     'About us' => '/about-us.php', // Adjust the path accordingly
     'Contact us' => '/contact-us.php', // Adjust the path accordingly
+    'login' => '/auth/login.php', // Adjust the path accordingly
+    'register' => '/auth/register.php', // Adjust the path accordingly
     // Add other pages as needed
 ];
 
@@ -29,6 +31,8 @@ $navItems = [
         'Logout' => '/logout.php', // Adjust the path accordingly
     ],
     'Tickets' => '/tickets.php', // Adjust the path accordingly
+    'login' => '/auth/login.php', // Adjust the path accordingly
+    'register' => '/auth/register.php', // Adjust the path accordingly
 ];
 ?>
 
@@ -46,13 +50,16 @@ $navItems = [
     <style>
         <?php include "style.css" ?>
     </style>
+<!--    font awesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 
 </head>
 <body>
 <header>
     <!-- Navbar -->
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 position-fixed border-bottom border-white">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 position-fixed border-bottom border-white" style="z-index: 1000">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">SwiftPass</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -99,8 +106,8 @@ $navItems = [
                     Login / Register
                 </a>
                 <ul class='dropdown-menu'>
-                    <li><a class='dropdown-item' href='login.php'>Login</a></li>
-                    <li><a class='dropdown-item' href='registration.php'>Register</a></li>
+                    <li><a class='dropdown-item' href='/swiftpass/auth/login.php'>Login</a></li>
+                    <li><a class='dropdown-item' href='/swiftpass/auth/registration.php'>Register</a></li>
                 </ul>
               </li>";
                     }
@@ -129,6 +136,11 @@ $navItems = [
         <span>&copy; 2024 <a href="https://github.com/Levi-LMN/SwiftPass">SwiftPass</a> All rights reserved. </span>
     </div>
 </footer>
+
+<!--fetching script.js using php-->
+<script>
+    <?php include "script.js" ?>
+</script>
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
