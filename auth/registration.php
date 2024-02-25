@@ -86,16 +86,16 @@ if (isset($_SESSION["user"])) {
             ?>
             <form action="registration.php" method="post">
                 <div class="mb-3">
-                    <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                    <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                    <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
                 </div>
                 <div class="mb-3">
-                    <input type="email" class="form-control" name="email" placeholder="Email">
+                    <input type="email" class="form-control" name="email" placeholder="Email" required>
                 </div>
                 <div class="mb-3 password-container">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                     <div class="password-icon-container">
                         <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
                     </div>
@@ -113,9 +113,10 @@ if (isset($_SESSION["user"])) {
                         <option value="user">User</option>
                     </select>
                 </div>
-                <div class="form-btn">
-                    <button type="submit" class="btn btn-primary btn-block" name="submit">Register</button>
+                <div class="form-btn d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary" name="submit">Register</button>
                 </div>
+
             </form>
             <div class="mt-3 text-center">
                 <p>Already Registered? <a href="login.php">Login Here</a></p>
