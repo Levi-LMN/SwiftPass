@@ -21,6 +21,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($result && mysqli_num_rows($result) > 0) {
         $user = mysqli_fetch_assoc($result);
 
+        // Set user information in the session
+        $_SESSION['user'] = $user;
+
         if ($user["role"] == 'admin') {
             $_SESSION['user'] = $user;
             header("Location: ../admin/admin_dashboard.php");
@@ -50,16 +53,6 @@ ob_start();
 ?>
 
 
-<!--<h2>User Login</h2>-->
-<!--<form method="post" action="login.php">-->
-<!--    <label for="email">Email:</label>-->
-<!--    <input type="email" name="email" required><br>-->
-<!---->
-<!--    <label for="password">Password:</label>-->
-<!--    <input type="password" name="password" required><br>-->
-<!---->
-<!--    <input type="submit" value="Login">-->
-<!--</form>-->
 
 
 <div class="container mt-5">

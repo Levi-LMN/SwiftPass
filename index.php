@@ -187,7 +187,16 @@ if ($loggedIn) {
 </div>
 
 
-
+<!--view all schedules-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>View All Travel Schedules</h2>
+            <p>View all travel schedules available in the system.</p>
+            <a href="user/schedules.php" class="btn btn-primary">View Schedules</a>
+        </div>
+    </div>
+</div>
 
 
 <?php

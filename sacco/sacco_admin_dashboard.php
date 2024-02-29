@@ -45,6 +45,8 @@ $adminInfo = mysqli_fetch_assoc($adminResult);
     <!-- Add more content specific to the Sacco admin's dashboard -->
     <a href="add_vehicle.php">Add Vehicle</a>
     <a href="view_vehicles.php">View Vehicles</a>
+    <a href="add_schedule.php">Add Schedule</a>
+    <a href="travel_schedules.php">View Travel Schedules</a>
 <?php else : ?>
     <p>You are not currently associated with any Sacco.</p>
 <?php endif; ?>

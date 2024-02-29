@@ -19,7 +19,9 @@ $currentPage = basename($currentFile);
 ?>
 
 <?php
+// Check if the "user" session variable exists
 $loggedIn = isset($_SESSION["user"]);
+
 
 $navItems = [
     'Home' => '/',
