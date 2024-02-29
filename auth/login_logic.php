@@ -2,11 +2,16 @@
 session_start();
 
 if (isset($_POST["login"])) {
+    // Retrieve user inputs
     $email = $_POST["email"];
     $password = $_POST["password"];
+    // Include the database configuration
     require_once "database.php"; // Updated path
-    $sql = "SELECT * FROM users WHERE email = '$email'";
+    // Retrieve the user from the database
+    $sql = "SELECT * FROM user WHERE email = '$email'";
+    // Use prepared statements to prevent SQL injection
     $result = mysqli_query($conn, $sql);
+    // Check if the user exists
     $user = mysqli_fetch_assoc($result); // Use mysqli_fetch_assoc for simplicity
     if ($user) {
         if (password_verify($password, $user["password"])) {

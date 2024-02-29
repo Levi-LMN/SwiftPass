@@ -1,36 +1,73 @@
+
+
 <?php
+session_start();
 if (isset($_SESSION["user"])) {
     header("Location: ../index.php");
+    exit();
 }
 
-// Check for registration success message
-if (isset($_SESSION["registration_success"])) {
-    echo "<script>alert('{$_SESSION["registration_success"]}');</script>";
-    unset($_SESSION["registration_success"]); // Remove the message from the session to avoid displaying it again
+include 'database.php'; // Update with your actual file path
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+
+    $hashed_password = md5($password);
+
+    $check_user_query = "SELECT * FROM User WHERE email='$email' AND password='$hashed_password'";
+    $result = mysqli_query($conn, $check_user_query);
+
+    if ($result && mysqli_num_rows($result) > 0) {
+        $user = mysqli_fetch_assoc($result);
+
+        if ($user["role"] == 'admin') {
+            $_SESSION['user'] = $user;
+            header("Location: ../admin/admin_dashboard.php");
+            exit();
+        } elseif ($user["role"] == 'sacco admin') {
+            $_SESSION['user'] = $user;
+            header("Location: ../sacco/sacco_admin_dashboard.php");
+            exit();
+        } elseif ($user["role"] == 'driver') {
+            $_SESSION['user'] = $user;
+            header("Location: ../driver/driver_dashboard.php");
+            exit();
+        } else {
+            header("Location: ../index.php");
+            exit();
+        }
+    } else {
+        echo "Invalid email or password. Please try again.";
+    }
 }
 
-// Include the login logic
-require_once "login_logic.php";
+// Set page title for the layout
+$pageTitle = "Registration Form";
 
-// Include the layout file
-$pageTitle = "Login Form";
-ob_start(); // Start output buffering to capture the content
-
-// Your page-specific content goes here
+// Content for the layout
+ob_start();
 ?>
+
+
+<!--<h2>User Login</h2>-->
+<!--<form method="post" action="login.php">-->
+<!--    <label for="email">Email:</label>-->
+<!--    <input type="email" name="email" required><br>-->
+<!---->
+<!--    <label for="password">Password:</label>-->
+<!--    <input type="password" name="password" required><br>-->
+<!---->
+<!--    <input type="submit" value="Login">-->
+<!--</form>-->
+
+
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-body text-center">
                     <h2 class="card-title mb-4">Login Form</h2>
-                    <?php
-                    // Display login errors, if any
-                    if (isset($_SESSION["login_error"])) {
-                        echo "<script>alert('{$_SESSION["login_error"]}');</script>";
-                        unset($_SESSION["login_error"]);
-                    }
-                    ?>
                     <form action="login.php" method="post">
                         <div class="mb-3">
                             <label for="email" class="form-label">Enter Email:</label>
@@ -50,7 +87,7 @@ ob_start(); // Start output buffering to capture the content
                             <input type="submit" class="btn btn-primary btn-block" value="Login" name="login">
                         </div>
                     </form>
-                        <div class="mt-3">
+                    <div class="mt-3">
                         <p>Not registered yet? <a href="registration.php">Register Here</a></p>
                     </div>
                 </div>
@@ -59,7 +96,14 @@ ob_start(); // Start output buffering to capture the content
     </div>
 </div>
 
+
+
+
 <?php
-$pageContent = ob_get_clean(); // Get the captured content
-include "../layout.php"; // Include the layout file
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
 ?>
+
