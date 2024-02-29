@@ -86,24 +86,30 @@ if (isset($_SESSION["user"])) {
             ?>
             <form action="registration.php" method="post">
                 <div class="mb-3">
-                    <label>
+                    <label for="first_name" class="form-label">Enter First Name:</label>
+
                         <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
-                    </label>
+
                 </div>
                 <div class="mb-3">
-                    <label>
+                    <label for="last_name" class="form-label">Enter Last Name:</label>
+
                         <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
-                    </label>
+
                 </div>
                 <div class="mb-3">
-                    <label>
+                    <label for="email" class="form-label">Enter Email:</label>
+
                         <input type="email" class="form-control" name="email" placeholder="Email" required>
-                    </label>
+
                 </div>
                 <div class="mb-3 password-container">
-                    <label for="password"></label><input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-                    <div class="password-icon-container">
-                        <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                    <label for="password" class="form-label">Enter Password:</label>
+                    <div class="input-group">
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Your password" required>
+                        <div class="password-icon-container input-group-append">
+                            <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">
@@ -114,14 +120,14 @@ if (isset($_SESSION["user"])) {
 
 
                 <div class="mb-3">
-                    <label>
+
                         <select class="form-select" name="role">
                             <option value="admin">Admin</option>
                             <option value="user">User</option>
                             <option value="sacco admin">Sacco admin</option>
                             <option value="driver">Driver</option>
                         </select>
-                    </label>
+
                 </div>
                 <div class="form-btn d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary" name="submit">Register</button>
