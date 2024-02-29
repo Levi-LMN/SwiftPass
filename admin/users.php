@@ -71,7 +71,7 @@ $result = mysqli_query($conn, $sql);
     <br>
     <a href="../auth/logout.php" class="btn btn-danger">Logout</a>
     <br>
-    <a href="admin_dashboard.html" class="btn btn-danger">Back to admin dashboard</a>
+    <a href="admin_dashboard.php" class="btn btn-danger">Back to admin dashboard</a>
 </div>
 
 <?php

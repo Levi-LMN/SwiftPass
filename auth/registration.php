@@ -39,8 +39,8 @@ if (isset($_SESSION["user"])) {
                 if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     array_push($errors, "Email is not valid");
                 }
-                if (strlen($password) < 8) {
-                    array_push($errors, "Password must be at least 8 characters long");
+                if (strlen($password) < 4) {
+                    array_push($errors, "Password must be at least 4 characters long");
                 }
                 if ($password !== $passwordRepeat) {
                     array_push($errors, "Password does not match");

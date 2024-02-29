@@ -20,7 +20,11 @@ if (isset($_POST["login"])) {
             );
 
             if ($user["role"] == 'admin') {
-                header("Location: ../admin/admin_dashboard.html");
+                header("Location: ../admin/admin_dashboard.php");
+            } elseif ($user["role"] == 'sacco admin') {
+                header("Location: ../sacco_admin/sacco_admin_dashboard.php");
+            } elseif ($user["role"] == 'driver') {
+                header("Location: ../driver/driver_dashboard.php");
             } else {
                 header("Location: ../index.php"); // Adjusted path
             }

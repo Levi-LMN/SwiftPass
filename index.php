@@ -1,4 +1,5 @@
 <?php
+//user dashboard page
 // Set page title for the layout
 $pageTitle = "Dashboard";
 
@@ -10,7 +11,24 @@ $loggedIn = isset($_SESSION["user"]) && is_array($_SESSION["user"]);
 
 // Retrieve the user's name from the session if logged in
 $userName = $loggedIn ? ($_SESSION["user"]["first_name"] . " " . $_SESSION["user"]["last_name"]) : "";
+
+// Redirect to the appropriate dashboard based on user role
+if ($loggedIn) {
+    $userRole = $_SESSION["user"]["role"];
+    if ($userRole == 'admin') {
+        header("Location: admin/admin_dashboard.php");
+        exit();
+    } elseif ($userRole == 'sacco admin') {
+        header("Location: sacco/sacco_admin_dashboard.php");
+        exit();
+    } elseif ($userRole == 'driver') {
+        header("Location: driver/driver_dashboard.php");
+        exit();
+    }
+}
 ?>
+<!-- Rest of your dashboard content goes here -->
+
 
 
 <!-- carousel -->
