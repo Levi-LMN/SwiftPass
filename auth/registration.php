@@ -86,32 +86,42 @@ if (isset($_SESSION["user"])) {
             ?>
             <form action="registration.php" method="post">
                 <div class="mb-3">
-                    <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                    <label>
+                        <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                    </label>
                 </div>
                 <div class="mb-3">
-                    <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
+                    <label>
+                        <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
+                    </label>
                 </div>
                 <div class="mb-3">
-                    <input type="email" class="form-control" name="email" placeholder="Email" required>
+                    <label>
+                        <input type="email" class="form-control" name="email" placeholder="Email" required>
+                    </label>
                 </div>
                 <div class="mb-3 password-container">
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                    <label for="password"></label><input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
                     <div class="password-icon-container">
                         <i class="fas fa-eye" id="togglePassword" onclick="togglePasswordVisibility()"></i>
                     </div>
                 </div>
                 <div class="mb-3">
-                    <input type="password" class="form-control" id="repeat_password" name="repeat_password" placeholder="Repeat Password">
+                    <label for="repeat_password"></label><input type="password" class="form-control" id="repeat_password" name="repeat_password" placeholder="Repeat Password">
                 </div>
 
 
 
 
                 <div class="mb-3">
-                    <select class="form-select" name="role">
-                        <option value="admin">Admin</option>
-                        <option value="user">User</option>
-                    </select>
+                    <label>
+                        <select class="form-select" name="role">
+                            <option value="admin">Admin</option>
+                            <option value="user">User</option>
+                            <option value="sacco admin">Sacco admin</option>
+                            <option value="driver">Driver</option>
+                        </select>
+                    </label>
                 </div>
                 <div class="form-btn d-flex justify-content-center">
                     <button type="submit" class="btn btn-primary" name="submit">Register</button>
