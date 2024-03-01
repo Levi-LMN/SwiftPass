@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// Set page title for the layout
+$pageTitle = "View Travel Schedules";
+
+// Content for the layout
+ob_start();
+
 // Include your database connection code here
 include '../auth/database.php'; // Update with your actual database connection file
 
@@ -60,90 +66,25 @@ if (!$adminInfo['sacco_name']) {
     exit();
 }
 
-// Retrieve all travel schedules associated with the Sacco along with the remaining seats count
-$schedulesQuery = "SELECT ts.*, v.make, v.model, v.registration_plate,
+// Fetch active travel schedules
+$activeSchedulesQuery = "SELECT ts.*, v.make, v.model, v.registration_plate,
                         v.capacity - COUNT(t.seat_number) AS remaining_seats
                   FROM TravelSchedule ts
                   INNER JOIN Vehicle v ON ts.vehicle_id = v.id
                   LEFT JOIN Ticket t ON ts.id = t.travel_schedule_id
                   WHERE v.sacco_id = '{$adminInfo['sacco_id']}'
+                    AND ts.is_done = 0
                   GROUP BY ts.id";
 
-$schedulesResult = mysqli_query($conn, $schedulesQuery);
+$activeSchedulesResult = mysqli_query($conn, $activeSchedulesQuery);
 
 // Check for errors in the query
-if (!$schedulesResult) {
-    die("Error fetching travel schedules: " . mysqli_error($conn));
+if (!$activeSchedulesResult) {
+    die("Error fetching active travel schedules: " . mysqli_error($conn));
 }
-?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Travel Schedules</title>
-</head>
-<body>
-<h2>View Travel Schedules</h2>
-<p>Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
-
-<h3>Active Travel Schedules for <?php echo $adminInfo['sacco_name']; ?>:</h3>
-<?php
-// Display active schedules
-if (mysqli_num_rows($schedulesResult) > 0) :
-    ?>
-    <table border="1">
-        <tr>
-            <th>Departure Location</th>
-            <th>Destination</th>
-            <th>Departure Time</th>
-            <th>Price</th>
-            <th>Vehicle Make</th>
-            <th>Vehicle Model</th>
-            <th>Vehicle Number Plate</th>
-            <th>Remaining Seats</th>
-            <th>Is Done</th>
-            <th>Action</th>
-        </tr>
-
-        <?php while ($schedule = mysqli_fetch_assoc($schedulesResult)) :
-            if (!$schedule['is_done']) : // Display only active schedules
-                ?>
-                <tr>
-                    <td><?php echo $schedule['departure_location']; ?></td>
-                    <td><?php echo $schedule['destination']; ?></td>
-                    <td><?php echo $schedule['departure_time']; ?></td>
-                    <td><?php echo $schedule['price']; ?></td>
-                    <td><?php echo $schedule['make']; ?></td>
-                    <td><?php echo $schedule['model']; ?></td>
-                    <td><?php echo $schedule['registration_plate']; ?></td>
-                    <td><?php echo $schedule['remaining_seats']; ?></td>
-                    <td><?php echo $schedule['is_done'] ? 'Yes' : 'No'; ?></td>
-                    <td>
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="hidden" name="toggle_is_done" value="<?php echo $schedule['id']; ?>">
-                            <input type="submit" value="<?php echo $schedule['is_done'] ? 'Mark as Not Done' : 'Mark as Done'; ?>">
-                        </form>
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                            <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">
-                            <input type="submit" name="delete_schedule" value="Delete">
-                        </form>
-                    </td>
-                </tr>
-            <?php
-            endif;
-        endwhile;
-        ?>
-    </table>
-<?php else : ?>
-    <p>No active travel schedules found for <?php echo $adminInfo['sacco_name']; ?>.</p>
-<?php endif; ?>
-
-<h3>Completed Travel Schedules for <?php echo $adminInfo['sacco_name']; ?>:</h3>
-<?php
-// Fetch completed schedules
-$schedulesQuery = "SELECT ts.*, v.make, v.model, v.registration_plate,
+// Fetch completed travel schedules
+$completedSchedulesQuery = "SELECT ts.*, v.make, v.model, v.registration_plate,
                         v.capacity - COUNT(t.seat_number) AS remaining_seats
                   FROM TravelSchedule ts
                   INNER JOIN Vehicle v ON ts.vehicle_id = v.id
@@ -152,59 +93,156 @@ $schedulesQuery = "SELECT ts.*, v.make, v.model, v.registration_plate,
                     AND ts.is_done = 1
                   GROUP BY ts.id";
 
-$schedulesResult = mysqli_query($conn, $schedulesQuery);
+$completedSchedulesResult = mysqli_query($conn, $completedSchedulesQuery);
 
 // Check for errors in the query
-if (!$schedulesResult) {
+if (!$completedSchedulesResult) {
     die("Error fetching completed travel schedules: " . mysqli_error($conn));
 }
 ?>
 
-<?php if (mysqli_num_rows($schedulesResult) > 0) : ?>
-    <table border="1">
-        <tr>
-            <th>Departure Location</th>
-            <th>Destination</th>
-            <th>Departure Time</th>
-            <th>Price</th>
-            <th>Vehicle Make</th>
-            <th>Vehicle Model</th>
-            <th>Vehicle Number Plate</th>
-            <th>Remaining Seats</th>
-            <th>Is Done</th>
-            <th>Action</th>
-        </tr>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $pageTitle; ?></title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-4">
+    <h2 class="mb-4"><?php echo $pageTitle; ?></h2>
+    <p>Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
 
-        <?php while ($schedule = mysqli_fetch_assoc($schedulesResult)) : ?>
-            <tr>
-                <td><?php echo $schedule['departure_location']; ?></td>
-                <td><?php echo $schedule['destination']; ?></td>
-                <td><?php echo $schedule['departure_time']; ?></td>
-                <td><?php echo $schedule['price']; ?></td>
-                <td><?php echo $schedule['make']; ?></td>
-                <td><?php echo $schedule['model']; ?></td>
-                <td><?php echo $schedule['registration_plate']; ?></td>
-                <td><?php echo $schedule['remaining_seats']; ?></td>
-                <td><?php echo $schedule['is_done'] ? 'Yes' : 'No'; ?></td>
-                <td>
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                        <input type="hidden" name="toggle_is_done" value="<?php echo $schedule['id']; ?>">
-                        <input type="submit" value="<?php echo $schedule['is_done'] ? 'Mark as Not Done' : 'Mark as Done'; ?>">
-                    </form>
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                        <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">
-                        <input type="submit" name="delete_schedule" value="Delete">
-                    </form>
-                </td>
-            </tr>
-        <?php endwhile; ?>
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">Active Travel Schedules for <?php echo $adminInfo['sacco_name']; ?>:</h3>
+            <?php if (mysqli_num_rows($activeSchedulesResult) > 0) : ?>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Departure Location</th>
+                            <th>Destination</th>
+                            <th>Departure Time</th>
+                            <th>Price</th>
+                            <th>Vehicle Make</th>
+                            <th>Vehicle Model</th>
+                            <th>Vehicle Number Plate</th>
+                            <th>Remaining Seats</th>
+                            <th>Is Done</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php while ($schedule = mysqli_fetch_assoc($activeSchedulesResult)) : ?>
+                            <tr>
+                                <td><?php echo $schedule['departure_location']; ?></td>
+                                <td><?php echo $schedule['destination']; ?></td>
+                                <td><?php echo $schedule['departure_time']; ?></td>
+                                <td><?php echo $schedule['price']; ?></td>
+                                <td><?php echo $schedule['make']; ?></td>
+                                <td><?php echo $schedule['model']; ?></td>
+                                <td><?php echo $schedule['registration_plate']; ?></td>
+                                <td><?php echo $schedule['remaining_seats']; ?></td>
+                                <td><?php echo $schedule['is_done'] ? 'Yes' : 'No'; ?></td>
+                                <td>
+                                    <div class="btn-group-vertical">
+                                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                            <input type="hidden" name="toggle_is_done" value="<?php echo $schedule['id']; ?>">
+                                            <button type="submit" class="btn <?php echo $schedule['is_done'] ? 'btn-success' : 'btn-warning'; ?> btn-block">
+                                                <?php echo $schedule['is_done'] ? 'Mark as Not Done' : 'Mark as Done'; ?>
+                                            </button>
+                                        </form>
+                                        <div class="mt-2"></div> <!-- Add some space between buttons -->
+                                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                            <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">
+                                            <button type="submit" name="delete_schedule" class="btn btn-danger btn-block">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
 
-    </table>
-<?php else : ?>
-    <p>No completed travel schedules found for <?php echo $adminInfo['sacco_name']; ?>.</p>
-<?php endif; ?>
 
-<!--back to admin dashboard-->
-<a href="sacco_admin_dashboard.php">Back to Admin Dashboard</a>
+                            </tr>
+                        <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php else : ?>
+                <p>No active travel schedules found for <?php echo $adminInfo['sacco_name']; ?>.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <div class="card mt-4">
+        <div class="card-body">
+            <h3 class="card-title">Completed Travel Schedules for <?php echo $adminInfo['sacco_name']; ?>:</h3>
+            <?php if (mysqli_num_rows($completedSchedulesResult) > 0) : ?>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th>Departure Location</th>
+                            <th>Destination</th>
+                            <th>Departure Time</th>
+                            <th>Price</th>
+                            <th>Vehicle Make</th>
+                            <th>Vehicle Model</th>
+                            <th>Vehicle Number Plate</th>
+                            <th>Remaining Seats</th>
+                            <th>Is Done</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <?php while ($schedule = mysqli_fetch_assoc($completedSchedulesResult)) : ?>
+                            <tr>
+                                <td><?php echo $schedule['departure_location']; ?></td>
+                                <td><?php echo $schedule['destination']; ?></td>
+                                <td><?php echo $schedule['departure_time']; ?></td>
+                                <td><?php echo $schedule['price']; ?></td>
+                                <td><?php echo $schedule['make']; ?></td>
+                                <td><?php echo $schedule['model']; ?></td>
+                                <td><?php echo $schedule['registration_plate']; ?></td>
+                                <td><?php echo $schedule['remaining_seats']; ?></td>
+                                <td><?php echo $schedule['is_done'] ? 'Yes' : 'No'; ?></td>
+                                <td>
+                                    <div class="btn-group-vertical">
+                                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                            <input type="hidden" name="toggle_is_done" value="<?php echo $schedule['id']; ?>">
+                                            <button type="submit" class="btn <?php echo $schedule['is_done'] ? 'btn-success' : 'btn-warning'; ?> btn-block">
+                                                <?php echo $schedule['is_done'] ? 'Mark as Not Done' : 'Mark as Done'; ?>
+                                            </button>
+                                        </form>
+                                        <div class="mt-2"></div> <!-- Add some space between buttons -->
+                                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                            <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">
+                                            <button type="submit" name="delete_schedule" class="btn btn-danger btn-block">Delete</button>
+                                        </form>
+                                    </div>
+                                </td>
+
+                            </tr>
+                        <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div>
+            <?php else : ?>
+                <p>No completed travel schedules found for <?php echo $adminInfo['sacco_name']; ?>.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- Back to admin dashboard link -->
+    <a href="sacco_admin_dashboard.php" class="btn btn-secondary mt-4">Back to Admin Dashboard</a>
+</div>
 </body>
 </html>
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
+?>

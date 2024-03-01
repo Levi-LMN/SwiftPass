@@ -1,6 +1,12 @@
 <?php
 session_start();
 
+// Set page title for the layout
+$pageTitle = "View vehicles";
+
+// Content for the layout
+ob_start();
+
 // Check if the user is logged in
 if (!isset($_SESSION["user"])) {
     // Redirect to the login page or handle the case where the user is not logged in
@@ -50,8 +56,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['vehicle_id'])) {
     }
 }
 
-// Retrieve all vehicles associated with the Sacco
-$vehiclesQuery = "SELECT * FROM Vehicle WHERE sacco_id = '{$adminInfo['sacco_id']}'";
+// Retrieve all vehicles associated with the Sacco along with the driver information
+$vehiclesQuery = "SELECT v.*, u.first_name AS driver_first_name, u.last_name AS driver_last_name
+                  FROM Vehicle v
+                  LEFT JOIN User u ON v.driver_id = u.id
+                  WHERE v.sacco_id = '{$adminInfo['sacco_id']}'";
 $vehiclesResult = mysqli_query($conn, $vehiclesQuery);
 
 // Check for errors in the query
@@ -60,52 +69,61 @@ if (!$vehiclesResult) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Vehicles</title>
-</head>
-<body>
-<h2>Vehicles Associated with <?php echo $adminInfo['sacco_name']; ?></h2>
-<p>Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
+<div class="container mt-4">
+    <h2 class="mb-4">Vehicles Associated with <?php echo $adminInfo['sacco_name']; ?></h2>
+    <p class="lead">Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
 
-<?php if (mysqli_num_rows($vehiclesResult) > 0) : ?>
-    <table border="1">
-        <tr>
-            <th>Make</th>
-            <th>Model</th>
-            <th>Registration Plate</th>
-            <th>Capacity</th>
-            <th>Action</th>
-
-        </tr>
-        <?php while ($vehicle = mysqli_fetch_assoc($vehiclesResult)) : ?>
+    <?php if (mysqli_num_rows($vehiclesResult) > 0) : ?>
+        <table class="table table-bordered mt-4">
+            <thead class="bg-dark text-white">
             <tr>
-                <td><?php echo $vehicle['make']; ?></td>
-                <td><?php echo $vehicle['model']; ?></td>
-                <td><?php echo $vehicle['registration_plate']; ?></td>
-                <td><?php echo $vehicle['capacity']; ?></td>
-                <td>
-                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                        <input type="hidden" name="vehicle_id" value="<?php echo $vehicle['id']; ?>">
-                        <input type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this vehicle?')">
-                    </form>
-                </td>
+                <th>Make</th>
+                <th>Model</th>
+                <th>Registration Plate</th>
+                <th>Capacity</th>
+                <th>Driver</th>
+                <th>Action</th>
             </tr>
-        <?php endwhile; ?>
-    </table>
-<?php else : ?>
-    <p>No vehicles associated with <?php echo $adminInfo['sacco_name']; ?>.</p>
-<?php endif; ?>
+            </thead>
+            <tbody>
+            <?php while ($vehicle = mysqli_fetch_assoc($vehiclesResult)) : ?>
+                <tr>
+                    <td><?php echo $vehicle['make']; ?></td>
+                    <td><?php echo $vehicle['model']; ?></td>
+                    <td><?php echo $vehicle['registration_plate']; ?></td>
+                    <td><?php echo $vehicle['capacity']; ?></td>
+                    <td><?php echo $vehicle['driver_first_name'] . ' ' . $vehicle['driver_last_name']; ?></td>
+                    <td>
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <input type="hidden" name="vehicle_id" value="<?php echo $vehicle['id']; ?>">
+                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this vehicle?')">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p class="mt-4">No vehicles associated with <?php echo $adminInfo['sacco_name']; ?>.</p>
+    <?php endif; ?>
 
-<!--back to admin dashboard-->
-<a href="sacco_admin_dashboard.php">Back to Admin Dashboard</a>
-</body>
-</html>
+    <!-- Back to admin dashboard and logout links -->
+    <div class="mt-3">
+        <a href="sacco_admin_dashboard.php" class="btn btn-primary mr-2">Back to Admin Dashboard</a>
+<!--        <a href="../auth/logout.php" class="btn btn-secondary">Logout</a>-->
+    </div>
+</div>
+
 
 <?php
 // Close the database connection
 mysqli_close($conn);
+?>
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
 ?>

@@ -1,6 +1,13 @@
 <?php
 session_start();
 
+
+// Set page title for the layout
+$pageTitle = "Add vehicle";
+
+// Content for the layout
+ob_start();
+
 // Check if the user is logged in and has the role 'sacco admin'
 if (!isset($_SESSION["user"]) || $_SESSION["user"]["role"] !== 'sacco admin') {
     // Redirect to the login page or handle the case where the user is not logged in or not a sacco admin
@@ -69,44 +76,67 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Travel Schedule</title>
-</head>
-<body>
-<h2>Add Travel Schedule</h2>
-<p>Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
 
-<form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-    <label for="departure_location">Departure Location:</label>
-    <input type="text" name="departure_location" required><br>
+<?php
+// ... (previous PHP code remains unchanged)
+?>
 
-    <label for="destination">Destination:</label>
-    <input type="text" name="destination" required><br>
+<div class="container mt-4">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="mb-0">Add Travel Schedule</h2>
+        </div>
+        <div class="card-body">
+            <p class="card-text">Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
+            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                <div class="form-group">
+                    <label for="departure_location">Departure Location:</label>
+                    <input type="text" name="departure_location" class="form-control" required>
+                </div>
 
-    <label for="departure_time">Departure Time:</label>
-    <input type="datetime-local" name="departure_time" required><br>
+                <div class="form-group">
+                    <label for="destination">Destination:</label>
+                    <input type="text" name="destination" class="form-control" required>
+                </div>
 
-    <label for="price">Price:</label>
-    <input type="number" name="price" required><br>
+                <div class="form-group">
+                    <label for="departure_time">Departure Time:</label>
+                    <input type="datetime-local" name="departure_time" class="form-control" required>
+                </div>
 
-    <label for="vehicle_id">Select Vehicle:</label>
-    <select name="vehicle_id" required>
-        <?php while ($vehicle = mysqli_fetch_assoc($vehiclesResult)) : ?>
-            <option value="<?php echo $vehicle['id']; ?>">
-                <?php echo $vehicle['make'] . ' ' . $vehicle['model'] . (isset($vehicle['registration_plate']) ? ' - ' . $vehicle['registration_plate'] : ''); ?>
-            </option>
+                <div class="form-group">
+                    <label for="price">Price:</label>
+                    <input type="number" name="price" class="form-control" required>
+                </div>
 
-        <?php endwhile; ?>
-    </select><br>
+                <div class="form-group">
+                    <label for="vehicle_id">Select Vehicle:</label>
+                    <select name="vehicle_id" class="form-control" required>
+                        <?php while ($vehicle = mysqli_fetch_assoc($vehiclesResult)) : ?>
+                            <option value="<?php echo $vehicle['id']; ?>">
+                                <?php echo $vehicle['make'] . ' ' . $vehicle['model'] . (isset($vehicle['registration_plate']) ? ' - ' . $vehicle['registration_plate'] : ''); ?>
+                            </option>
+                        <?php endwhile; ?>
+                    </select>
+                </div>
 
-    <input type="submit" value="Add Travel Schedule">
-</form>
+                <button type="submit" class="btn btn-primary">Add Travel Schedule</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            <a href="sacco_admin_dashboard.php" class="btn btn-secondary">Back to Admin Dashboard</a>
+        </div>
+    </div>
+</div>
 
-<!--back to admin dashboard-->
-<a href="sacco_admin_dashboard.php">Back to Admin Dashboard</a>
-</body>
-</html>
+
+
+
+
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
+?>

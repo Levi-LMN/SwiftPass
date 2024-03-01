@@ -79,6 +79,9 @@ $remainingSeats = $scheduleDetails['capacity'] - count($initialBookedSeats);
     <form action="" method="post">
         <label for="seatSelect">Choose a Seat:</label>
         <select name="selectedSeat" id="seatSelect">
+            <!-- Placeholder option -->
+            <option value="" disabled selected>Select Seats</option>
+
             <?php
             // Assume the seats are labeled from 1 to the vehicle's capacity
             for ($seat = 1; $seat <= $scheduleDetails['capacity']; $seat++) {
@@ -91,9 +94,9 @@ $remainingSeats = $scheduleDetails['capacity'] - count($initialBookedSeats);
             }
             ?>
         </select>
-
-<!--        <input type="submit" value="Select Seat">-->
+        <!-- Add the remaining code as before -->
     </form>
+
 
 <?php else : ?>
     <p>No details found for the provided schedule ID.</p>
