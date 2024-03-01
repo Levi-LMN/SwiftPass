@@ -2,11 +2,14 @@
 // Include your database connection code here
 include '../auth/database.php'; // Update with your actual database connection file
 
-// Retrieve all travel schedules
-$schedulesQuery = "SELECT ts.*, v.make, v.model, s.name AS sacco_name
+// Retrieve all travel schedules with the count of booked seats
+$schedulesQuery = "SELECT ts.*, v.make, v.model, s.name AS sacco_name,
+                        v.capacity - COUNT(t.seat_number) AS remaining_seats
                   FROM TravelSchedule ts
                   INNER JOIN Vehicle v ON ts.vehicle_id = v.id
-                  INNER JOIN Sacco s ON v.sacco_id = s.id";
+                  INNER JOIN Sacco s ON v.sacco_id = s.id
+                  LEFT JOIN Ticket t ON ts.id = t.travel_schedule_id
+                  GROUP BY ts.id";
 
 $schedulesResult = mysqli_query($conn, $schedulesQuery);
 
@@ -36,6 +39,7 @@ if (!$schedulesResult) {
             <th>Vehicle Make</th>
             <th>Vehicle Model</th>
             <th>Sacco Name</th>
+            <th>Remaining Seats</th> <!-- Add a new column for remaining seats -->
             <th>Action</th> <!-- Add a new column for actions -->
         </tr>
         <?php while ($schedule = mysqli_fetch_assoc($schedulesResult)) : ?>
@@ -47,6 +51,7 @@ if (!$schedulesResult) {
                 <td><?php echo $schedule['make']; ?></td>
                 <td><?php echo $schedule['model']; ?></td>
                 <td><?php echo $schedule['sacco_name']; ?></td>
+                <td><?php echo $schedule['remaining_seats']; ?></td>
                 <td>
                     <!-- Add a link to the booking page with the schedule ID -->
                     <a href="booking_details.php?schedule_id=<?php echo $schedule['id']; ?>">Book Now</a>
