@@ -2,13 +2,14 @@
 // Include your database connection code here
 include '../auth/database.php'; // Update with your actual database connection file
 
-// Retrieve all travel schedules with the count of booked seats
+// Retrieve all travel schedules with the count of booked seats that are not marked as done
 $schedulesQuery = "SELECT ts.*, v.make, v.model, s.name AS sacco_name,
                         v.capacity - COUNT(t.seat_number) AS remaining_seats
                   FROM TravelSchedule ts
                   INNER JOIN Vehicle v ON ts.vehicle_id = v.id
                   INNER JOIN Sacco s ON v.sacco_id = s.id
                   LEFT JOIN Ticket t ON ts.id = t.travel_schedule_id
+                  WHERE ts.is_done = 0
                   GROUP BY ts.id";
 
 $schedulesResult = mysqli_query($conn, $schedulesQuery);
@@ -67,7 +68,7 @@ if (!$schedulesResult) {
         <?php endwhile; ?>
     </table>
 <?php else : ?>
-    <p>No travel schedules found.</p>
+    <p>No active travel schedules found.</p>
 <?php endif; ?>
 
 <!-- Add links or buttons for additional actions or navigation -->
