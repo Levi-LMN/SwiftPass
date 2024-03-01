@@ -4,7 +4,7 @@ session_start();
 // Check if the user is logged in and has the role 'sacco admin'
 if (!isset($_SESSION["user"]) || $_SESSION["user"]["role"] !== 'sacco admin') {
     // Redirect to the login page or handle the case where the user is not logged in or not a sacco admin
-    header("Location: login.php");
+    header("Location: ../auth/login.php");
     exit();
 }
 
@@ -48,11 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_schedule'])) {
     }
 }
 
-// Retrieve all travel schedules associated with the Sacco
-$schedulesQuery = "SELECT ts.*, v.make, v.model, v.registration_plate
+// Retrieve all travel schedules associated with the Sacco along with the remaining seats count
+$schedulesQuery = "SELECT ts.*, v.make, v.model, v.registration_plate,
+                        v.capacity - COUNT(t.seat_number) AS remaining_seats
                   FROM TravelSchedule ts
                   INNER JOIN Vehicle v ON ts.vehicle_id = v.id
-                  WHERE v.sacco_id = '{$adminInfo['sacco_id']}'";
+                  LEFT JOIN Ticket t ON ts.id = t.travel_schedule_id
+                  WHERE v.sacco_id = '{$adminInfo['sacco_id']}'
+                  GROUP BY ts.id";
 
 $schedulesResult = mysqli_query($conn, $schedulesQuery);
 
@@ -84,6 +87,7 @@ if (!$schedulesResult) {
             <th>Vehicle Make</th>
             <th>Vehicle Model</th>
             <th>Vehicle Number Plate</th>
+            <th>Remaining Seats</th>
             <th>Action</th>
         </tr>
 
@@ -96,6 +100,7 @@ if (!$schedulesResult) {
                 <td><?php echo $schedule['make']; ?></td>
                 <td><?php echo $schedule['model']; ?></td>
                 <td><?php echo $schedule['registration_plate']; ?></td>
+                <td><?php echo $schedule['remaining_seats']; ?></td>
                 <td>
                     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                         <input type="hidden" name="schedule_id" value="<?php echo $schedule['id']; ?>">

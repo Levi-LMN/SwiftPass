@@ -53,8 +53,15 @@ if (!$schedulesResult) {
                 <td><?php echo $schedule['sacco_name']; ?></td>
                 <td><?php echo $schedule['remaining_seats']; ?></td>
                 <td>
-                    <!-- Add a link to the booking page with the schedule ID -->
-                    <a href="booking_details.php?schedule_id=<?php echo $schedule['id']; ?>">Book Now</a>
+                    <?php
+                    if ($schedule['remaining_seats'] > 0) {
+                        // Display the "Book Now" link
+                        echo '<a href="booking_details.php?schedule_id=' . $schedule['id'] . '">Book Now</a>';
+                    } else {
+                        // Display a message indicating that the schedule is full
+                        echo 'Schedule Full';
+                    }
+                    ?>
                 </td>
             </tr>
         <?php endwhile; ?>

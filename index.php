@@ -198,6 +198,17 @@ if ($loggedIn) {
     </div>
 </div>
 
+<!--user bookings-->
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>Your Bookings</h2>
+            <p>View all your bookings.</p>
+            <a href="user/user_bookings.php" class="btn btn-primary">View Bookings</a>
+        </div>
+    </div>
+</div>
+
 
 <?php
 // Get the buffered content and assign it to $content

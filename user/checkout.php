@@ -87,6 +87,6 @@ $totalPrice = $scheduleDetails['price'] * count(explode(',', $selectedSeats));
 <?php endif; ?>
 
 <!--back to ticketing page or any other desired page-->
-<a href="ticketing.php?schedule_id=<?php echo $scheduleDetails['id']; ?>">Back to Ticketing</a>
+<a href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>">Back to Ticketing</a>
 </body>
 </html>
