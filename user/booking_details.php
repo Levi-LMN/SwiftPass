@@ -1,4 +1,9 @@
 <?php
+// Set page title for the layout
+$pageTitle = "Booking details";
+
+// Content for the layout
+ob_start();
 // Include your database connection code here
 include '../auth/database.php'; // Update with your actual database connection file
 
@@ -37,43 +42,55 @@ if (!$scheduleResult) {
 $scheduleDetails = mysqli_fetch_assoc($scheduleResult);
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking Page</title>
-</head>
-<body>
-<h2>Booking Details</h2>
+<div class="container mt-5">
+    <?php if ($scheduleDetails) : ?>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3 class="mb-0">Schedule Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><strong>Departure Location:</strong> <?php echo $scheduleDetails['departure_location']; ?></p>
+                        <p class="card-text"><strong>Destination:</strong> <?php echo $scheduleDetails['destination']; ?></p>
+                        <p class="card-text"><strong>Departure Time:</strong> <?php echo $scheduleDetails['departure_time']; ?></p>
+                        <p class="card-text"><strong>Price:</strong> <?php echo $scheduleDetails['price']; ?></p>
+                        <p class="card-text"><strong>Vehicle Make:</strong> <?php echo $scheduleDetails['make']; ?></p>
+                        <p class="card-text"><strong>Vehicle Model:</strong> <?php echo $scheduleDetails['model']; ?></p>
+                        <p class="card-text"><strong>Vehicle Number Plate:</strong> <?php echo $scheduleDetails['registration_plate']; ?></p>
+                        <p class="card-text"><strong>Sacco Name:</strong> <?php echo $scheduleDetails['sacco_name']; ?></p>
+                    </div>
+                </div>
+            </div>
 
-<?php if ($scheduleDetails) : ?>
-    <h3>Schedule Details</h3>
-    <p><strong>Departure Location:</strong> <?php echo $scheduleDetails['departure_location']; ?></p>
-    <p><strong>Destination:</strong> <?php echo $scheduleDetails['destination']; ?></p>
-    <p><strong>Departure Time:</strong> <?php echo $scheduleDetails['departure_time']; ?></p>
-    <p><strong>Price:</strong> <?php echo $scheduleDetails['price']; ?></p>
-    <p><strong>Vehicle Make:</strong> <?php echo $scheduleDetails['make']; ?></p>
-    <p><strong>Vehicle Model:</strong> <?php echo $scheduleDetails['model']; ?></p>
-    <p><strong>Vehicle Number Plate:</strong> <?php echo $scheduleDetails['registration_plate']; ?></p>
-    <p><strong>Sacco Name:</strong> <?php echo $scheduleDetails['sacco_name']; ?></p>
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="card-header bg-success text-white">
+                        <h3 class="mb-0">User Details</h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"><strong>User ID:</strong> <?php echo $_SESSION['user']['id']; ?></p>
+                        <p class="card-text"><strong>User Name:</strong> <?php echo $_SESSION['user']['first_name'] . ' ' . $_SESSION['user']['last_name']; ?></p>
+                        <p class="card-text"><strong>User Email:</strong> <?php echo $_SESSION['user']['email']; ?></p>
+                        <!-- Add booking form or any additional content here -->
+                        <!-- Link to go to the ticketing page -->
+                        <a class="btn btn-primary" href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>">Go to Ticketing Page</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    <!-- Display user details -->
-    <h3>User Details</h3>
-    <p><strong>User ID:</strong> <?php echo $_SESSION['user']['id']; ?></p>
-    <p><strong>User Name:</strong> <?php echo $_SESSION['user']['first_name'] . ' ' . $_SESSION['user']['last_name']; ?></p>
-    <p><strong>User Email:</strong> <?php echo $_SESSION['user']['email']; ?></p>
+    <?php else : ?>
+        <p class="alert alert-warning">No details found for the provided schedule ID.</p>
+    <?php endif; ?>
+    <!-- Back to view all schedules page or any other desired page -->
+    <a class="btn btn-secondary" href="schedules.php">Back to View All Schedules</a>
+</div>
 
-    <!-- Add booking form or any additional content here -->
-    <!-- Link to go to the ticketing page -->
-    <a href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>">Go to Ticketing Page</a>
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
 
-
-<?php else : ?>
-    <p>No details found for the provided schedule ID.</p>
-<?php endif; ?>
-
-<!--back to view all schedules page or any other desired page-->
-<a href="view_all_schedules.php">Back to View All Schedules</a>
-</body>
-</html>
+// Include the layout
+include('../layout.php');
+?>

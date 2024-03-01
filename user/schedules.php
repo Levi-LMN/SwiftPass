@@ -1,4 +1,13 @@
 <?php
+session_start();
+$loggedIn = isset($_SESSION["user"]) && is_array($_SESSION["user"]);
+
+// Set page title for the layout
+$pageTitle = "Schedules";
+
+// Content for the layout
+ob_start();
+
 // Include your database connection code here
 include '../auth/database.php'; // Update with your actual database connection file
 
@@ -20,58 +29,55 @@ if (!$schedulesResult) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View All Travel Schedules</title>
-</head>
-<body>
-<h2>All Travel Schedules</h2>
+<div class="container mt-5">
+    <h2 class="mb-4">View All Travel Schedules</h2>
 
-<?php if (mysqli_num_rows($schedulesResult) > 0) : ?>
-    <table border="1">
-        <tr>
-            <th>Departure Location</th>
-            <th>Destination</th>
-            <th>Departure Time</th>
-            <th>Price</th>
-            <th>Vehicle Make</th>
-            <th>Vehicle Model</th>
-            <th>Sacco Name</th>
-            <th>Remaining Seats</th> <!-- Add a new column for remaining seats -->
-            <th>Action</th> <!-- Add a new column for actions -->
-        </tr>
-        <?php while ($schedule = mysqli_fetch_assoc($schedulesResult)) : ?>
+    <?php if (mysqli_num_rows($schedulesResult) > 0) : ?>
+        <table class="table table-bordered">
+            <thead>
             <tr>
-                <td><?php echo $schedule['departure_location']; ?></td>
-                <td><?php echo $schedule['destination']; ?></td>
-                <td><?php echo $schedule['departure_time']; ?></td>
-                <td><?php echo $schedule['price']; ?></td>
-                <td><?php echo $schedule['make']; ?></td>
-                <td><?php echo $schedule['model']; ?></td>
-                <td><?php echo $schedule['sacco_name']; ?></td>
-                <td><?php echo $schedule['remaining_seats']; ?></td>
-                <td>
-                    <?php
-                    if ($schedule['remaining_seats'] > 0) {
-                        // Display the "Book Now" link
-                        echo '<a href="booking_details.php?schedule_id=' . $schedule['id'] . '">Book Now</a>';
-                    } else {
-                        // Display a message indicating that the schedule is full
-                        echo 'Schedule Full';
-                    }
-                    ?>
-                </td>
+                <th>Departure Location</th>
+                <th>Destination</th>
+                <th>Departure Time</th>
+                <th>Price</th>
+                <th>Vehicle Make</th>
+                <th>Vehicle Model</th>
+                <th>Sacco Name</th>
+                <th>Remaining Seats</th>
+                <th>Action</th>
             </tr>
-        <?php endwhile; ?>
-    </table>
-<?php else : ?>
-    <p>No active travel schedules found.</p>
-<?php endif; ?>
+            </thead>
+            <tbody>
+            <?php while ($schedule = mysqli_fetch_assoc($schedulesResult)) : ?>
+                <tr>
+                    <td><?php echo $schedule['departure_location']; ?></td>
+                    <td><?php echo $schedule['destination']; ?></td>
+                    <td><?php echo $schedule['departure_time']; ?></td>
+                    <td><?php echo $schedule['price']; ?></td>
+                    <td><?php echo $schedule['make']; ?></td>
+                    <td><?php echo $schedule['model']; ?></td>
+                    <td><?php echo $schedule['sacco_name']; ?></td>
+                    <td><?php echo $schedule['remaining_seats']; ?></td>
+                    <td>
+                        <?php if ($schedule['remaining_seats'] > 0) : ?>
+                            <a class="btn btn-primary" href="booking_details.php?schedule_id=<?php echo $schedule['id']; ?>">Book Now</a>
+                        <?php else : ?>
+                            <span class="text-danger">Schedule Full</span>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+            <?php endwhile; ?>
+            </tbody>
+        </table>
+    <?php else : ?>
+        <p>No active travel schedules found.</p>
+    <?php endif; ?>
+</div>
 
-<!-- Add links or buttons for additional actions or navigation -->
+<?php
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
 
-</body>
-</html>
+// Include the layout
+include('../layout.php');
+?>

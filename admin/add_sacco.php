@@ -1,4 +1,12 @@
 <?php
+// Set page title for the layout
+$pageTitle = "Add Sacco";
+
+// Content for the layout
+ob_start();
+?>
+
+<?php
 session_start();
 
 // Check if the user is logged in
@@ -21,38 +29,49 @@ if (!$result) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add Sacco</title>
-</head>
-<body>
-<h2>Add Sacco</h2>
-<form method="post" action="process_add_sacco.php"> <!-- Create a separate processing file for form submissions -->
-    <label for="sacco_name">Sacco Name:</label>
-    <input type="text" name="sacco_name" required><br>
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-header">
+            <h2 class="card-title"><?php echo $pageTitle; ?></h2>
+        </div>
+        <div class="card-body">
+            <form method="post" action="process_add_sacco.php" class="needs-validation" novalidate>
+                <div class="mb-3">
+                    <label for="sacco_name" class="form-label">Sacco Name:</label>
+                    <input type="text" name="sacco_name" class="form-control" required>
+                    <div class="invalid-feedback">Please enter the Sacco name.</div>
+                </div>
 
-    <label for="admin_id">Select Sacco Admin:</label>
-    <select name="admin_id" required>
-        <?php
-        // Display Sacco admins in the dropdown
-        while ($row = mysqli_fetch_assoc($result)) {
-            echo "<option value='" . $row['id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
-        }
-        ?>
-    </select><br>
+                <div class="mb-3">
+                    <label for="admin_id" class="form-label">Select Sacco Admin:</label>
+                    <select name="admin_id" class="form-select" required>
+                        <option value="" selected disabled>Select Sacco Admin</option>
+                        <?php
+                        // Display Sacco admins in the dropdown
+                        while ($row = mysqli_fetch_assoc($result)) {
+                            echo "<option value='" . $row['id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
+                        }
+                        ?>
+                    </select>
+                    <div class="invalid-feedback">Please select a Sacco admin.</div>
+                </div>
 
-    <input type="submit" value="Add Sacco">
-</form>
+                <button type="submit" class="btn btn-primary">Add Sacco</button>
+            </form>
+        </div>
+    </div>
 
-<!--back to admin dashboard-->
-<a href="admin_dashboard.php">Back to Admin Dashboard</a>
-</body>
-</html>
+    <!-- Back to admin dashboard -->
+    <a href="admin_dashboard.php" class="btn btn-secondary mt-3">Back to Admin Dashboard</a>
+</div>
 
 <?php
 // Close the database connection
 mysqli_close($conn);
+
+// Get the buffered content and assign it to $content
+$pageContent = ob_get_clean();
+
+// Include the layout
+include('../layout.php');
 ?>

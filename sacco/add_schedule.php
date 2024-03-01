@@ -112,6 +112,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 <div class="form-group">
                     <label for="vehicle_id">Select Vehicle:</label>
                     <select name="vehicle_id" class="form-control" required>
+                        <!-- Placeholder option -->
+                        <option value="" disabled selected>Select Vehicle</option>
+
                         <?php while ($vehicle = mysqli_fetch_assoc($vehiclesResult)) : ?>
                             <option value="<?php echo $vehicle['id']; ?>">
                                 <?php echo $vehicle['make'] . ' ' . $vehicle['model'] . (isset($vehicle['registration_plate']) ? ' - ' . $vehicle['registration_plate'] : ''); ?>
