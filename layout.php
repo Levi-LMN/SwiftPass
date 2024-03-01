@@ -28,8 +28,8 @@ $navItems = [
     'About us' => '/about-us.php', // Adjust the path accordingly
     'Contact us' => '/contact-us.php', // Adjust the path accordingly,
     'User\'s account' => [
-        'User\'s profile' => '/user-profile.php', // Adjust the path accordingly
-        'History' => '/user-history.php', // Adjust the path accordingly
+        'User\'s profile' => '/profile.php', // Adjust the path accordingly
+        'History' => '/user/user_bookings.php', // Adjust the path accordingly
         'Logout' => '/auth/logout.php', // Adjust the path accordingly
     ],
     'Tickets' => '/tickets.php', // Adjust the path accordingly
@@ -102,7 +102,7 @@ foreach ($navItems as $pageTitle => $item) {
             } elseif ($pageTitle === 'Tickets') {
                 echo "<li class='nav-item'>
                         <a class='nav-link $isActive' href='$baseUrl$item'>
-                            <i class='fas fa-ticket-alt'></i> $pageTitle
+                            <i class='fas fa-ticket-alt'></i> <sup>1</sup>$pageTitle
                         </a>
                       </li>";
             } else {
