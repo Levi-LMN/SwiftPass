@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 01, 2024 at 03:05 PM
+-- Generation Time: Mar 01, 2024 at 09:51 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -92,7 +92,11 @@ INSERT INTO `ticket` (`id`, `ticket_number`, `user_id`, `travel_schedule_id`, `b
                                                                                                                           (73, '64D2687E72', 12, 8, '2024-03-01 17:02:01', '3', 500),
                                                                                                                           (74, 'BA30CA5124', 12, 8, '2024-03-01 17:02:01', '2', 500),
                                                                                                                           (75, 'C40F61DD50', 12, 8, '2024-03-01 17:02:01', '14', 500),
-                                                                                                                          (76, '619453D174', 12, 8, '2024-03-01 17:02:23', '6', 500);
+                                                                                                                          (76, '619453D174', 12, 8, '2024-03-01 17:02:23', '6', 500),
+                                                                                                                          (77, '22EA22FA9E', 12, 9, '2024-03-01 18:15:42', '4', 600),
+                                                                                                                          (78, '4080AC4D26', 12, 8, '2024-03-01 22:51:56', '10', 500),
+                                                                                                                          (79, '4EA3C4A932', 12, 8, '2024-03-01 22:52:54', '16', 500),
+                                                                                                                          (80, '31C532EF8A', 12, 8, '2024-03-01 22:57:45', '18', 500);
 
 -- --------------------------------------------------------
 
@@ -115,9 +119,9 @@ CREATE TABLE `travelschedule` (
 --
 
 INSERT INTO `travelschedule` (`id`, `departure_location`, `destination`, `departure_time`, `price`, `vehicle_id`, `is_done`) VALUES
-                                                                                                                                 (7, 'Muranga', 'Githurai', '2024-03-30 11:52:00', 500, 5, 1),
-                                                                                                                                 (8, 'Nyeri', 'Kabarak', '2024-03-23 12:19:00', 500, 7, 0),
-                                                                                                                                 (9, 'Kisumu', 'Kitengela', '2024-03-30 20:26:00', 600, 6, 1);
+                                                                                                                                 (7, 'Muranga', 'Githurai', '2024-03-30 11:52:00', 500, 5, 0),
+                                                                                                                                 (8, 'Nyeri', 'Kabarak', '2024-03-23 12:19:00', 500, 7, 1),
+                                                                                                                                 (9, 'Kisumu', 'Kitengela', '2024-03-30 20:26:00', 600, 6, 0);
 
 -- --------------------------------------------------------
 
@@ -150,7 +154,7 @@ INSERT INTO `user` (`id`, `first_name`, `last_name`, `email`, `password`, `role`
                                                                                                                                                                           (6, 'pis', 'Mwendwa', 'Loreumipsum@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'sacco admin', '2024-02-29 20:12:32', NULL, 0, NULL, NULL, 14),
                                                                                                                                                                           (10, 'james', 'Gatubi', 'levimukuh@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'driver', '2024-02-29 21:20:53', NULL, 0, '1234', NULL, NULL),
                                                                                                                                                                           (11, 'alex', 'Nyamberi', 'alex@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'driver', '2024-02-29 21:21:37', NULL, 0, '1234', NULL, NULL),
-                                                                                                                                                                          (12, 'Jamrick', 'malev', 'levi@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'user', '2024-03-01 00:17:31', NULL, 0, NULL, NULL, NULL);
+                                                                                                                                                                          (12, 'Jamrick', 'maleve', 'levi@gmail.com', '81dc9bdb52d04dc20036dbd8313ed055', 'user', '2024-03-01 00:17:31', NULL, 0, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -235,7 +239,7 @@ ALTER TABLE `sacco`
 -- AUTO_INCREMENT for table `ticket`
 --
 ALTER TABLE `ticket`
-    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
 -- AUTO_INCREMENT for table `travelschedule`
