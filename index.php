@@ -65,14 +65,14 @@ if ($loggedIn) {
             <!-- list item -->
             <div class="list">
                 <div class="item">
-                    <img src="https://img.freepik.com/free-photo/traffic-vehicle-urban-reflections-city_1112-973.jpg?w=996&t=st=1709198573~exp=1709199173~hmac=411baf48b2329915de6005ec89148ef08c979f039c4908dfb84678c76c5d2d93">
+                    <img src="img/matwanaculture-20240301-0002.jpg">
                     <div class="content">
                         <div class="author">GiorgioGT</div>
                         <div class="title">SWIFTPASS</div>
-                        <div class="topic">VARIOUS CLASS</div>
+                        <div class="topic">CITY CIRCUIT COMMUTE</div>
                         <div class="des">
                             <!-- lorem 50 -->
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                            Hop on board our City Circuit Commute for a seamless journey around Nairobi's bustling metropolis. From the vibrant streets of the Central Business District to the leafy suburbs of Karen and Westlands, explore the heart of the city with convenience and ease.
                         </div>
                         <div class="buttons">
                             <button>SEE MORE</button>
@@ -81,13 +81,13 @@ if ($loggedIn) {
                     </div>
                 </div>
                 <div class="item">
-                    <img src="https://img.freepik.com/free-photo/interior-public-bus-transport_53876-63434.jpg?size=626&ext=jpg&ga=GA1.1.1345868282.1709198552&semt=ais">
+                    <img src="img/matwanaculture-20240301-0001.jpg">
                     <div class="content">
                         <div class="author">giorgioGT</div>
                         <div class="title">SWIFTPASS</div>
-                        <div class="topic">Inside</div>
+                        <div class="topic">SUBURBAN SHUTTLE SERVICES</div>
                         <div class="des">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                            Experience Nairobi's suburban charm with our Suburban Shuttle Service. Travel to iconic destinations like the Nairobi National Park, Giraffe Centre, and Karen Blixen Museum while enjoying comfortable and reliable transportation.
                         </div>
                         <div class="buttons">
                             <button>SEE MORE</button>
@@ -96,13 +96,13 @@ if ($loggedIn) {
                     </div>
                 </div>
                 <div class="item">
-                    <img src="https://img.freepik.com/premium-photo/bus-with-geometric-shapes-decoration_161488-522.jpg?size=626&ext=jpg&ga=GA1.1.1345868282.1709198552&semt=ais">
+                    <img src="img/matwanaculture-20240301-0003.jpg">
                     <div class="content">
                         <div class="author">giorgioGT</div>
                         <div class="title">SWIFTPASS</div>
-                        <div class="topic">white bus</div>
+                        <div class="topic">MATATU MAGIC</div>
                         <div class="des">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                            Embark on a thrilling adventure through Nairobi's vibrant neighborhoods with our Matatu Magic Tour. Discover hidden gems, local markets, and cultural hotspots as you ride in style aboard Nairobi's iconic minibusses.
                         </div>
                         <div class="buttons">
                             <button>SEE MORE</button>
@@ -111,13 +111,13 @@ if ($loggedIn) {
                     </div>
                 </div>
                 <div class="item">
-                    <img src="https://img.freepik.com/free-photo/close-up-hand-holding-bus-bar_23-2148921682.jpg?w=996&t=st=1709199620~exp=1709200220~hmac=8b43ea30de7150429067595d232cfa09d6139315c71fd5a89325e2246cef5a4b">
+                    <img src="img/matwanaculture-20240301-0004.jpg">
                     <div class="content">
                         <div class="author">giorgioGT</div>
                         <div class="title">SWIFTPASS</div>
-                        <div class="topic">Hand holding bus bar</div>
+                        <div class="topic">EXPRESSWAY EXCURSION</div>
                         <div class="des">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ut sequi, rem magnam nesciunt minima placeat, itaque eum neque officiis unde, eaque optio ratione aliquid assumenda facere ab et quasi ducimus aut doloribus non numquam. Explicabo, laboriosam nisi reprehenderit tempora at laborum natus unde. Ut, exercitationem eum aperiam illo illum laudantium?
+                            Take the fast lane to adventure with our Expressway Excursion. Zoom along Nairobi's expressways to reach popular destinations such as Jomo Kenyatta International Airport, Thika Road Mall, and Two Rivers Mall in record time.
                         </div>
                         <div class="buttons">
                             <button>SEE MORE</button>
@@ -129,7 +129,7 @@ if ($loggedIn) {
             <!-- list thumnail -->
             <div class="thumbnail">
                 <div class="item">
-                    <img src="https://raw.githubusercontent.com/HoanghoDev/slider_1/main/image/img1.jpg">
+                    <img src="img/matwanaculture-20240301-0002.jpg">
                     <div class="content">
                         <div class="title">
                             Name Slider
@@ -140,7 +140,7 @@ if ($loggedIn) {
                     </div>
                 </div>
                 <div class="item">
-                    <img src="https://raw.githubusercontent.com/HoanghoDev/slider_1/main/image/img2.jpg">
+                    <img src="img/matwanaculture-20240301-0001.jpg">
                     <div class="content">
                         <div class="title">
                             Name Slider
@@ -151,7 +151,7 @@ if ($loggedIn) {
                     </div>
                 </div>
                 <div class="item">
-                    <img src="https://raw.githubusercontent.com/HoanghoDev/slider_1/main/image/img3.jpg">
+                    <img src="img/matwanaculture-20240301-0003.jpg">
                     <div class="content">
                         <div class="title">
                             Name Slider
@@ -162,7 +162,7 @@ if ($loggedIn) {
                     </div>
                 </div>
                 <div class="item">
-                    <img src="https://img.freepik.com/free-photo/close-up-hand-holding-bus-bar_23-2148921682.jpg?w=996&t=st=1709199620~exp=1709200220~hmac=8b43ea30de7150429067595d232cfa09d6139315c71fd5a89325e2246cef5a4b">
+                    <img src="img/matwanaculture-20240301-0004.jpg">
                     <div class="content">
                         <div class="title">
                             Hand holding bus bar
@@ -183,6 +183,10 @@ if ($loggedIn) {
             <div class="time"></div>
         </div>
         <!-- end carousel -->
+
+
+
+
 
 
 

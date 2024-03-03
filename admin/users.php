@@ -18,7 +18,7 @@ require_once "../auth/database.php";
 if(isset($_GET['delete_user'])){
     $user_id = mysqli_real_escape_string($conn, $_GET['delete_user']);
     // Perform the deletion query using prepared statement
-    $delete_sql = "DELETE FROM user WHERE id = ?";
+    $delete_sql = "DELETE FROM User WHERE id = ?";
     $stmt = mysqli_prepare($conn, $delete_sql);
     mysqli_stmt_bind_param($stmt, "i", $user_id);
     mysqli_stmt_execute($stmt);
@@ -26,7 +26,7 @@ if(isset($_GET['delete_user'])){
 }
 
 
-$sql = "SELECT * FROM user";
+$sql = "SELECT * FROM User";
 $result = mysqli_query($conn, $sql);
 ?>
 

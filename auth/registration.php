@@ -13,6 +13,15 @@ if (isset($_SESSION["user"])) {
 }
 ?>
 
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+// Set page title for the layout
+$pageTitle = "Registration Form";
+
+// Content for the layout
+ob_start();
+?>
 
 
 <?php
@@ -32,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hashed_password = md5($password);
 
     // Insert user data into the User table
-    $insert_user_query = "INSERT INTO User (first_name, last_name, email, password, role)
+    $insert_user_query = "INSERT INTO user (first_name, last_name, email, password, role)
                           VALUES ('$first_name', '$last_name', '$email', '$hashed_password', '$role')";
 
     if ($conn->query($insert_user_query) === TRUE) {
@@ -49,30 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 
-<!--<form method="post" action="registration.php">-->
-<!--    <label for="first_name">First Name:</label>-->
-<!--    <input type="text" name="first_name" required><br>-->
-<!---->
-<!--    <label for="last_name">Last Name:</label>-->
-<!--    <input type="text" name="last_name" required><br>-->
-<!---->
-<!--    <label for="email">Email:</label>-->
-<!--    <input type="email" name="email" required><br>-->
-<!---->
-<!--    <label for="password">Password:</label>-->
-<!--    <input type="password" name="password" required><br>-->
-<!---->
-<!--    <label for="role">Role:</label>-->
-<!--    <select name="role" required>-->
-<!--        <option value="user">User</option>-->
-<!--        <option value="admin">Admin</option>-->
-<!--        <option value="sacco admin">Sacco Admin</option>-->
-<!--        <option value="driver">driver</option>-->
-<!--         Add more options as needed -->
-<!--    </select><br>-->
-<!---->
-<!--    <input type="submit" value="Register">-->
-<!--</form>-->
+
 
 
 <div class="container mt-5 d-flex justify-content-center align-items-center">

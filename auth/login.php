@@ -1,4 +1,12 @@
+<?php
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+// Set page title for the layout
+$pageTitle = "Login Form";
 
+// Content for the layout
+ob_start();
+?>
 
 <?php
 session_start();
@@ -15,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $hashed_password = md5($password);
 
-    $check_user_query = "SELECT * FROM User WHERE email='$email' AND password='$hashed_password'";
+    $check_user_query = "SELECT * FROM user WHERE email='$email' AND password='$hashed_password'";
     $result = mysqli_query($conn, $check_user_query);
 
     if ($result && mysqli_num_rows($result) > 0) {
@@ -46,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 // Set page title for the layout
-$pageTitle = "Registration Form";
+$pageTitle = "Login Form";
 
 // Content for the layout
 ob_start();

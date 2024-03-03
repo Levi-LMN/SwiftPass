@@ -41,13 +41,15 @@ if (!$bookingsResult) {
     <h1 class="mb-4">Your Bookings</h1>
 
     <?php
+    // Display the total number of bookings
+    echo "<p>Total Bookings: " . mysqli_num_rows($bookingsResult) . "</p>";
+
     if (mysqli_num_rows($bookingsResult) > 0) {
         // Group bookings by schedule
         $groupedBookings = [];
         while ($booking = mysqli_fetch_assoc($bookingsResult)) {
-            $scheduleId = $booking['travel_schedule_id'];
-
             // Fetch departure location and destination from travelschedule table
+            $scheduleId = $booking['travel_schedule_id'];
             $scheduleQuery = "SELECT departure_location, destination, departure_time FROM travelschedule WHERE id = $scheduleId";
             $scheduleResult = mysqli_query($conn, $scheduleQuery);
             $scheduleData = mysqli_fetch_assoc($scheduleResult);
@@ -103,10 +105,6 @@ if (!$bookingsResult) {
     }
     ?>
 </div>
-
-
-
-
 
 <!-- Add any additional content or links here -->
 <?php

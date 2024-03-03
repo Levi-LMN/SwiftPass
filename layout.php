@@ -6,8 +6,8 @@ $baseUrl = '/swiftpass'; // Adjust this based on your project structure
 // Define an array of page names and their corresponding paths
 $pages = [
     'Home' => '/',
-    'About us' => '/about-us.php', // Adjust the path accordingly
-    'Contact us' => '/contact-us.php', // Adjust the path accordingly
+    'About us' => '/user/about-us.php', // Adjust the path accordingly
+    'Contact us' => '/user/contact-us.php', // Adjust the path accordingly
     'login' => '/auth/login.php', // Adjust the path accordingly
     'register' => '/auth/register.php', // Adjust the path accordingly
     // Add other pages as needed
@@ -19,21 +19,45 @@ $currentPage = basename($currentFile);
 ?>
 
 <?php
+// Check if the user is logged in
+$loggedIn = isset($_SESSION["user"]);
+
+// Retrieve the total number of bookings
+$totalBookings = 0; // Default value
+
+if ($loggedIn) {
+    // You may need to include your database connection code here
+    include 'auth/database.php';
+
+    // Query to get the total number of bookings for the logged-in user
+    $userId = $_SESSION['user']['id'];
+    $totalBookingsQuery = "SELECT COUNT(*) as total FROM Ticket WHERE user_id = '$userId'";
+    $totalBookingsResult = mysqli_query($conn, $totalBookingsQuery);
+
+    // Check for errors in the query
+    if ($totalBookingsResult) {
+        $totalBookingsData = mysqli_fetch_assoc($totalBookingsResult);
+        $totalBookings = $totalBookingsData['total'];
+    }
+}
+?>
+
+<?php
 // Check if the "user" session variable exists
 $loggedIn = isset($_SESSION["user"]);
 
 
 $navItems = [
     'Home' => '/',
-    'About us' => '/about-us.php', // Adjust the path accordingly
-    'Contact us' => '/contact-us.php', // Adjust the path accordingly,
+    'About us' => '/user/about.php', // Adjust the path accordingly
+    'Contact us' => '/user/contact_us.php', // Adjust the path accordingly,
     'User\'s account' => [
         'User\'s profile' => '/profile.php', // Adjust the path accordingly
         'History' => '/user/user_bookings.php', // Adjust the path accordingly
         'Logout' => '/auth/logout.php', // Adjust the path accordingly
     ],
-    'Tickets' => '/tickets.php', // Adjust the path accordingly
-
+    'Tickets' => '/user/user_bookings.php', // Adjust the path accordingly
+    'FAQs' => '/user/FAQs.php'
 ];
 ?>
 
@@ -102,7 +126,7 @@ foreach ($navItems as $pageTitle => $item) {
             } elseif ($pageTitle === 'Tickets') {
                 echo "<li class='nav-item'>
                         <a class='nav-link $isActive' href='$baseUrl$item'>
-                            <i class='fas fa-ticket-alt'></i> <sup>1</sup>$pageTitle
+                            <i class='fas fa-ticket-alt'></i> <sup>$totalBookings</sup>$pageTitle
                         </a>
                       </li>";
             } else {
@@ -153,6 +177,10 @@ foreach ($navItems as $pageTitle => $item) {
     <?php include "script.js" ?>
 </script>
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.9/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
