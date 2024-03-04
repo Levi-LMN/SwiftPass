@@ -155,6 +155,7 @@ foreach ($navItems as $pageTitle => $item) {
     <br>
     <br>
 
+
 </header>
 
 <main>
@@ -166,11 +167,52 @@ foreach ($navItems as $pageTitle => $item) {
 <br>
 <br>
 <br>
-<footer class="footer bg-dark text-light py-2" >
-    <div class="container text-center">
-        <span>&copy; 2024 <a href="https://github.com/Levi-LMN/SwiftPass">SwiftPass</a> All rights reserved. </span>
+
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="footer-col">
+                <h4>Ticketsphere</h4>
+                <ul>
+                    <li><a href="Aboutus.html">About Us</a></li>
+                    <li><a href="#">Bus routes</a></li>
+                    <li><a href="#"></a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Get Help</h4>
+                <ul>
+                    <li><a href="#">FAQ'S</a></li>
+                    <li><a href="#">Payment Options</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Online Services</h4>
+                <ul>
+                    <li><a href="#">Make a booking</a></li>
+                    <li><a href="#">Bus Hire</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>follow us</h4>
+                <div class="social-links">
+                    <a href=""><ion-icon name="logo-facebook"></ion-icon></a>
+                    <a href=""><ion-icon name="logo-instagram"></ion-icon></a>
+                    <a href=""><ion-icon name="logo-twitter"></ion-icon></a>
+                    <a href=""><ion-icon name="logo-linkedin"></ion-icon></a>
+
+                </div>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2024 Ticketsphere. All rights reserved.</p>
+        </div>
     </div>
 </footer>
+
+<!-- =========ion icons========= -->
+<script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
 <!--fetching script.js using php-->
 <script>

@@ -66,6 +66,16 @@ if ($user["role"] != 'admin') {
                         </div>
                     </div>
                 </div>
+                <!--all saccos-->
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="card border-warning h-100">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">All Saccos</h5>
+                            <p class="card-text">View all saccos system.</p>
+                            <a href="saccos.php" class="btn btn-warning mt-auto">View Sacco</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

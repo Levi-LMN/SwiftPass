@@ -127,10 +127,10 @@ if ($result) {
                 <div class="card-header">
                     <h1>User Profile</h1>
                 </div>
-                <div class="card-body">
+                <div class="card-body" >
                     <!-- Display user details -->
-                    <p class="card-text"><strong>Name:</strong> <?php echo $user['first_name'] . ' ' . $user['last_name']; ?></p>
-                    <p class="card-text"><strong>Email:</strong> <?php echo $user['email']; ?></p>
+                    <p class="card-text" style="color: white"><strong>Name:</strong> <?php echo $user['first_name'] . ' ' . $user['last_name']; ?></p>
+                    <p class="card-text" style="color: white"><strong>Email:</strong> <?php echo $user['email']; ?></p>
                     <!-- Button to flip the card -->
                     <button type="button" class="btn btn-primary" onclick="flipCard()">Update Details</button>
                 </div>
