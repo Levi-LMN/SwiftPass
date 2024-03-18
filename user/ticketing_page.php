@@ -63,18 +63,18 @@ $scheduleDetails = mysqli_fetch_assoc($scheduleResult);
 $remainingSeats = $scheduleDetails['capacity'] - count($initialBookedSeats);
 ?>
 
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
+<div>
+    <div>
+        <div>
 
             <?php if ($scheduleDetails) : ?>
 
                 <!-- Schedule Details Card -->
-                <div class="card">
-                    <div class="card-header">
+                <div>
+                    <div>
                         <h2>Schedule Details</h2>
                     </div>
-                    <div class="card-body">
+                    <div>
                         <!-- Your schedule details content here -->
                         <p><strong>Departure Location:</strong> <?php echo $scheduleDetails['departure_location']; ?></p>
                         <p><strong>Destination:</strong> <?php echo $scheduleDetails['destination']; ?></p>
@@ -90,8 +90,8 @@ $remainingSeats = $scheduleDetails['capacity'] - count($initialBookedSeats);
             <?php else : ?>
 
                 <!-- No Details Found Card -->
-                <div class="card">
-                    <div class="card-body">
+                <div>
+                    <div>
                         <p>No details found for the provided schedule ID.</p>
                     </div>
                 </div>
@@ -100,14 +100,14 @@ $remainingSeats = $scheduleDetails['capacity'] - count($initialBookedSeats);
 
         </div>
 
-        <div class="col-md-6">
+        <div>
 
             <!-- Select Your Seat Card -->
-            <div class="card mt-4">
-                <div class="card-header">
+            <div>
+                <div>
                     <h2>Select Your Seat</h2>
                 </div>
-                <div class="card-body">
+                <div>
                     <!-- Your seat selection form here -->
                     <form action="" method="post">
                         <div>
@@ -135,48 +135,35 @@ $remainingSeats = $scheduleDetails['capacity'] - count($initialBookedSeats);
             </div>
 
             <!-- Remaining Seats Card -->
-            <div class="card mt-4">
-                <div class="card-header">
+            <div>
+                <div>
                     <h2>Remaining Seats</h2>
                 </div>
-                <div class="card-body">
+                <div>
                     <p id="remainingSeats">Remaining Seats: <?php echo $remainingSeats; ?></p>
                 </div>
             </div>
 
             <!-- Selected Seats Card -->
-            <div class="card mt-4">
-                <div class="card-header">
+            <div>
+                <div>
                     <h2>Selected Seats</h2>
                 </div>
-                <div class="card-body" id="selectedSeats"></div>
-                <div class="container mt-3">
-                    <div class="row justify-content-center">
-                        <div class="col-6">
-                            <!-- Add the checkout link and any additional content here -->
-                            <a href="checkout.php?schedule_id=<?php echo $scheduleDetails['id']; ?>&seats=" id="checkoutLink" class="btn btn-primary" style="display: none;">Proceed to Checkout</a>
-                        </div>
+                <div id="selectedSeats"></div>
+                <div>
+                    <div>
+                        <!-- Add the checkout link and any additional content here -->
+                        <a href="checkout.php?schedule_id=<?php echo $scheduleDetails['id']; ?>&seats=" id="checkoutLink" style="display: none;">Proceed to Checkout</a>
                     </div>
                 </div>
 
             </div>
-
-
-
-
-
-
-
-
-
         </div>
     </div>
 
     <!-- Back to view all schedules link -->
-    <div class="row mt-4">
-        <div class="col-md-12">
-            <a href="view_all_schedules.php">Back to View All Schedules</a>
-        </div>
+    <div>
+        <a href="view_all_schedules.php">Back to View All Schedules</a>
     </div>
 </div>
 

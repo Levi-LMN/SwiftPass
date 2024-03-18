@@ -8,33 +8,33 @@ $pageTitle = "Swifpass Booking Result";
 ob_start();
 ?>
 
-<div class="container mt-5">
-    <h1 class="display-4">Booking Result</h1>
+<div>
+    <h1>Booking Result</h1>
 
     <?php
     // Retrieve result message and details from the URL parameters
     $resultMessage = isset($_GET['message']) ? $_GET['message'] : 'No result message.';
     $ticketDetails = isset($_GET['ticket_details']) ? $_GET['ticket_details'] : '';
 
-    echo "<p class='lead'>$resultMessage</p>";
+    echo "<p>$resultMessage</p>";
 
     if (!empty($ticketDetails)) {
         $tickets = explode(', ', $ticketDetails);
 
         echo '<h3>Details:</h3>';
-        echo '<ul class="list-group">';
+        echo '<ul>';
 
         foreach ($tickets as $ticket) {
             $ticketInfo = explode(': ', $ticket);
             $seatInfo = explode(', ', $ticketInfo[1]);
 
-            echo '<li class="list-group-item">';
+            echo '<li>';
             echo "<strong>{$ticketInfo[0]}</strong>:";
-            echo '<ul class="list-group list-group-flush">';
+            echo '<ul>';
 
             foreach ($seatInfo as $seat) {
                 list($seatNumber, $ticketNumber, $price) = explode(' - ', $seat);
-                echo '<li class="list-group-item">';
+                echo '<li>';
                 echo "Seat $seatNumber: Ticket Number - $ticketNumber, Price - $price";
                 echo '</li>';
             }
@@ -47,7 +47,7 @@ ob_start();
     }
     ?>
 
-    <p class="mt-3"><a href="schedules.php" class="btn btn-primary">Book Another Seat</a></p>
+    <p><a href="schedules.php">Book Another Seat</a></p>
 </div>
 
 

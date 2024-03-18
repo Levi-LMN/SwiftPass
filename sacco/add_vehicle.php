@@ -75,54 +75,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 
-<div class="container mt-5">
-    <div class="card border-dark rounded shadow-lg mx-auto" style="max-width: 600px;">
-        <div class="card-body">
-            <h2 class="card-title mb-4 text-center">Add Vehicle</h2>
-            <p class="card-text lead text-center">Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
+<div>
+    <h2>Add Vehicle</h2>
+    <p>Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
 
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" class="mb-4">
-                <div class="mb-3">
-                    <label for="make" class="form-label">Make:</label>
-                    <input type="text" name="make" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="model" class="form-label">Model:</label>
-                    <input type="text" name="model" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="registration_plate" class="form-label">Registration Plate:</label>
-                    <input type="text" name="registration_plate" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="capacity" class="form-label">Capacity:</label>
-                    <input type="number" name="capacity" class="form-control" required>
-                </div>
-
-                <div class="mb-3">
-                    <label for="driver_id" class="form-label">Select Driver:</label>
-                    <select name="driver_id" class="form-select" required>
-                        <!-- Placeholder option -->
-                        <option value="" disabled selected>Select Driver</option>
-
-                        <?php while ($driver = mysqli_fetch_assoc($driversResult)) : ?>
-                            <option value="<?php echo $driver['id']; ?>"><?php echo $driver['first_name'] . ' ' . $driver['last_name']; ?></option>
-                        <?php endwhile; ?>
-                    </select>
-                </div>
-
-                <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Add Vehicle</button>
-                </div>
-            </form>
-
-            <!-- Link back to admin dashboard -->
-            <a href="sacco_admin_dashboard.php" class="btn btn-secondary d-block mx-auto">Back to Admin Dashboard</a>
+    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+        <div>
+            <label for="make">Make:</label>
+            <input type="text" name="make" required>
         </div>
-    </div>
+
+        <div>
+            <label for="model">Model:</label>
+            <input type="text" name="model" required>
+        </div>
+
+        <div>
+            <label for="registration_plate">Registration Plate:</label>
+            <input type="text" name="registration_plate" required>
+        </div>
+
+        <div>
+            <label for="capacity">Capacity:</label>
+            <input type="number" name="capacity" required>
+        </div>
+
+        <div>
+            <label for="driver_id">Select Driver:</label>
+            <select name="driver_id" required>
+                <option value="" disabled selected>Select Driver</option>
+
+                <?php while ($driver = mysqli_fetch_assoc($driversResult)) : ?>
+                    <option value="<?php echo $driver['id']; ?>"><?php echo $driver['first_name'] . ' ' . $driver['last_name']; ?></option>
+                <?php endwhile; ?>
+            </select>
+        </div>
+
+        <button type="submit">Add Vehicle</button>
+    </form>
+
+    <!-- Link back to admin dashboard -->
+    <a href="sacco_admin_dashboard.php">Back to Admin Dashboard</a>
 </div>
 
 

@@ -29,11 +29,11 @@ if (!$schedulesResult) {
 }
 ?>
 
-<div class="container mt-5">
-    <h2 class="mb-4">View All Travel Schedules</h2>
+<div>
+    <h2>View All Travel Schedules</h2>
 
     <?php if (mysqli_num_rows($schedulesResult) > 0) : ?>
-        <table class="table table-bordered">
+        <table>
             <thead>
             <tr>
                 <th>Departure Location</th>
@@ -60,9 +60,9 @@ if (!$schedulesResult) {
                     <td><?php echo $schedule['remaining_seats']; ?></td>
                     <td>
                         <?php if ($schedule['remaining_seats'] > 0) : ?>
-                            <a class="btn btn-primary" href="booking_details.php?schedule_id=<?php echo $schedule['id']; ?>">Book Now</a>
+                            <a href="booking_details.php?schedule_id=<?php echo $schedule['id']; ?>">Book Now</a>
                         <?php else : ?>
-                            <span class="text-danger">Schedule Full</span>
+                            <span>Schedule Full</span>
                         <?php endif; ?>
                     </td>
                 </tr>

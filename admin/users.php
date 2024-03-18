@@ -25,17 +25,15 @@ if(isset($_GET['delete_user'])){
     mysqli_stmt_close($stmt);
 }
 
-
 $sql = "SELECT * FROM User";
 $result = mysqli_query($conn, $sql);
 ?>
 
-
-<div class="container">
+<div>
     <h2>User List</h2>
     <?php
     if (mysqli_num_rows($result) > 0) {
-        echo "<table class='table'>
+        echo "<table>
                 <thead>
                     <tr>
                         <th>ID</th>
@@ -56,20 +54,20 @@ $result = mysqli_query($conn, $sql);
                     <td>{$row['email']}</td>
                     <td>{$row['role']}</td>
                     <td>
-                        <a href='?delete_user={$row['id']}' class='btn btn-danger btn-sm'>Delete</a>
+                        <a href='?delete_user={$row['id']}'>Delete</a>
                     </td>
                   </tr>";
         }
 
         echo "</tbody></table>";
     } else {
-        echo "<div class='alert alert-info'>No users found</div>";
+        echo "<p>No users found</p>";
     }
 
     mysqli_close($conn);
     ?>
 
-    <a href="admin_dashboard.php" class="btn btn-danger">Back to admin dashboard</a>
+    <a href="admin_dashboard.php">Back to admin dashboard</a>
 </div>
 
 <?php

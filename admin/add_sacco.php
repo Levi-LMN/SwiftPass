@@ -29,41 +29,29 @@ if (!$result) {
 }
 ?>
 
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h2 class="card-title"><?php echo $pageTitle; ?></h2>
-        </div>
-        <div class="card-body">
-            <form method="post" action="process_add_sacco.php" class="needs-validation" novalidate>
-                <div class="mb-3">
-                    <label for="sacco_name" class="form-label">Sacco Name:</label>
-                    <input type="text" name="sacco_name" class="form-control" required>
-                    <div class="invalid-feedback">Please enter the Sacco name.</div>
-                </div>
+<h2><?php echo $pageTitle; ?></h2>
+<form method="post" action="process_add_sacco.php">
+    <label for="sacco_name">Sacco Name:</label>
+    <input type="text" name="sacco_name" required>
+    <div>Please enter the Sacco name.</div>
 
-                <div class="mb-3">
-                    <label for="admin_id" class="form-label">Select Sacco Admin:</label>
-                    <select name="admin_id" class="form-select" required>
-                        <option value="" selected disabled>Select Sacco Admin</option>
-                        <?php
-                        // Display Sacco admins in the dropdown
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<option value='" . $row['id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
-                        }
-                        ?>
-                    </select>
-                    <div class="invalid-feedback">Please select a Sacco admin.</div>
-                </div>
+    <label for="admin_id">Select Sacco Admin:</label>
+    <select name="admin_id" required>
+        <option value="" selected disabled>Select Sacco Admin</option>
+        <?php
+        // Display Sacco admins in the dropdown
+        while ($row = mysqli_fetch_assoc($result)) {
+            echo "<option value='" . $row['id'] . "'>" . $row['first_name'] . " " . $row['last_name'] . "</option>";
+        }
+        ?>
+    </select>
+    <div>Please select a Sacco admin.</div>
 
-                <button type="submit" class="btn btn-primary">Add Sacco</button>
-            </form>
-        </div>
-    </div>
+    <button type="submit">Add Sacco</button>
+</form>
 
-    <!-- Back to admin dashboard -->
-    <a href="admin_dashboard.php" class="btn btn-secondary mt-3">Back to Admin Dashboard</a>
-</div>
+<!-- Back to admin dashboard -->
+<a href="admin_dashboard.php">Back to Admin Dashboard</a>
 
 <?php
 // Close the database connection

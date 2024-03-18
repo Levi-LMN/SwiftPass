@@ -42,49 +42,49 @@ if (!$scheduleResult) {
 $scheduleDetails = mysqli_fetch_assoc($scheduleResult);
 ?>
 
-<div class="container mt-5">
+<div>
     <?php if ($scheduleDetails) : ?>
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header bg-primary text-white">
-                        <h3 class="mb-0">Schedule Details</h3>
+        <div>
+            <div>
+                <div>
+                    <div>
+                        <h3>Schedule Details</h3>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text"><strong>Departure Location:</strong> <?php echo $scheduleDetails['departure_location']; ?></p>
-                        <p class="card-text"><strong>Destination:</strong> <?php echo $scheduleDetails['destination']; ?></p>
-                        <p class="card-text"><strong>Departure Time:</strong> <?php echo $scheduleDetails['departure_time']; ?></p>
-                        <p class="card-text"><strong>Price:</strong> <?php echo $scheduleDetails['price']; ?></p>
-                        <p class="card-text"><strong>Vehicle Make:</strong> <?php echo $scheduleDetails['make']; ?></p>
-                        <p class="card-text"><strong>Vehicle Model:</strong> <?php echo $scheduleDetails['model']; ?></p>
-                        <p class="card-text"><strong>Vehicle Number Plate:</strong> <?php echo $scheduleDetails['registration_plate']; ?></p>
-                        <p class="card-text"><strong>Sacco Name:</strong> <?php echo $scheduleDetails['sacco_name']; ?></p>
+                    <div>
+                        <p><strong>Departure Location:</strong> <?php echo $scheduleDetails['departure_location']; ?></p>
+                        <p><strong>Destination:</strong> <?php echo $scheduleDetails['destination']; ?></p>
+                        <p><strong>Departure Time:</strong> <?php echo $scheduleDetails['departure_time']; ?></p>
+                        <p><strong>Price:</strong> <?php echo $scheduleDetails['price']; ?></p>
+                        <p><strong>Vehicle Make:</strong> <?php echo $scheduleDetails['make']; ?></p>
+                        <p><strong>Vehicle Model:</strong> <?php echo $scheduleDetails['model']; ?></p>
+                        <p><strong>Vehicle Number Plate:</strong> <?php echo $scheduleDetails['registration_plate']; ?></p>
+                        <p><strong>Sacco Name:</strong> <?php echo $scheduleDetails['sacco_name']; ?></p>
                     </div>
                 </div>
             </div>
 
-            <div class="col-md-6 mb-4">
-                <div class="card">
-                    <div class="card-header bg-success text-white">
-                        <h3 class="mb-0">User Details</h3>
+            <div>
+                <div>
+                    <div>
+                        <h3>User Details</h3>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text"><strong>User ID:</strong> <?php echo $_SESSION['user']['id']; ?></p>
-                        <p class="card-text"><strong>User Name:</strong> <?php echo $_SESSION['user']['first_name'] . ' ' . $_SESSION['user']['last_name']; ?></p>
-                        <p class="card-text"><strong>User Email:</strong> <?php echo $_SESSION['user']['email']; ?></p>
+                    <div>
+                        <p><strong>User ID:</strong> <?php echo $_SESSION['user']['id']; ?></p>
+                        <p><strong>User Name:</strong> <?php echo $_SESSION['user']['first_name'] . ' ' . $_SESSION['user']['last_name']; ?></p>
+                        <p><strong>User Email:</strong> <?php echo $_SESSION['user']['email']; ?></p>
                         <!-- Add booking form or any additional content here -->
                         <!-- Link to go to the ticketing page -->
-                        <a class="btn btn-primary" href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>">Go to Ticketing Page</a>
+                        <a href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>">Go to Ticketing Page</a>
                     </div>
                 </div>
             </div>
         </div>
 
     <?php else : ?>
-        <p class="alert alert-warning">No details found for the provided schedule ID.</p>
+        <p>No details found for the provided schedule ID.</p>
     <?php endif; ?>
     <!-- Back to view all schedules page or any other desired page -->
-    <a class="btn btn-secondary" href="schedules.php">Back to View All Schedules</a>
+    <a href="schedules.php">Back to View All Schedules</a>
 </div>
 
 <?php

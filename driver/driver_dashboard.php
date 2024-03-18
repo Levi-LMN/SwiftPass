@@ -75,38 +75,36 @@ if (!$schedulesResult) {
 }
 ?>
 
-<div class="container mt-4">
+<div>
     <!-- Error Messages -->
     <?php if (isset($errorMessage) && !empty($errorMessage)) : ?>
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <div>
             <?php echo $errorMessage; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
     <!-- Success Messages -->
     <?php if (isset($successMessage) && !empty($successMessage)) : ?>
-        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <div>
             <?php echo $successMessage; ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     <?php endif; ?>
 
     <h2>Driver Dashboard</h2>
 
-    <p class="lead">Welcome, <?php echo $driverInfo['first_name'] . ' ' . $driverInfo['last_name']; ?>!</p>
+    <p>Welcome, <?php echo $driverInfo['first_name'] . ' ' . $driverInfo['last_name']; ?>!</p>
 
     <h3>Your Vehicle Information:</h3>
-    <ul class="list-group">
-        <li class="list-group-item">Make: <?php echo $driverInfo['make']; ?></li>
-        <li class="list-group-item">Model: <?php echo $driverInfo['model']; ?></li>
-        <li class="list-group-item">Registration Plate: <?php echo $driverInfo['registration_plate']; ?></li>
+    <ul>
+        <li>Make: <?php echo $driverInfo['make']; ?></li>
+        <li>Model: <?php echo $driverInfo['model']; ?></li>
+        <li>Registration Plate: <?php echo $driverInfo['registration_plate']; ?></li>
     </ul>
 
     <h3>Travel Schedules for Your Vehicle:</h3>
     <?php if (mysqli_num_rows($schedulesResult) > 0) : ?>
-        <table class="table table-bordered table-striped">
-            <thead class="thead-dark">
+        <table>
+            <thead>
             <tr>
                 <th>Departure Location</th>
                 <th>Destination</th>
@@ -134,11 +132,11 @@ if (!$schedulesResult) {
                     <td>
                         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                             <input type="hidden" name="toggle_is_done" value="<?php echo $schedule['id']; ?>">
-                            <input type="submit" class="btn btn-sm btn-<?php echo $schedule['is_done'] ? 'warning' : 'success'; ?>" value="<?php echo $schedule['is_done'] ? 'Mark as Not Done' : 'Mark as Done'; ?>">
+                            <input type="submit" value="<?php echo $schedule['is_done'] ? 'Mark as Not Done' : 'Mark as Done'; ?>">
                         </form>
                     </td>
                     <td>
-                        <a href="view_bookings.php?schedule_id=<?php echo $schedule['id']; ?>" class="btn btn-sm btn-info">View Bookings</a>
+                        <a href="view_bookings.php?schedule_id=<?php echo $schedule['id']; ?>">View Bookings</a>
                     </td>
                 </tr>
             <?php endwhile; ?>
@@ -149,14 +147,9 @@ if (!$schedulesResult) {
     <?php endif; ?>
 
     <!-- Logout link -->
-    <a href="../auth/logout.php" class="btn btn-danger">Logout</a>
+    <a href="../auth/logout.php">Logout</a>
 
 </div>
-
-
-
-
-
 
 <?php
 // Close the database connection

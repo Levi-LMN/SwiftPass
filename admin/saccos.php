@@ -2,6 +2,20 @@
 // Include your database connection code
 include '../auth/database.php';
 
+// Check if the form is submitted for Sacco deletion
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['delete_sacco'])) {
+    $sacco_id = $_POST['sacco_id'];
+
+    // SQL query to delete the Sacco
+    $delete_sql = "DELETE FROM sacco WHERE id = $sacco_id";
+
+    if (mysqli_query($conn, $delete_sql)) {
+        echo "Sacco deleted successfully.";
+    } else {
+        echo "Error deleting Sacco: " . mysqli_error($conn);
+    }
+}
+
 // SQL query to retrieve Saccos and their assigned Sacco admins
 $sql = "SELECT s.id AS sacco_id, s.name AS sacco_name, u.id AS admin_id, u.first_name AS admin_first_name, u.last_name AS admin_last_name
         FROM sacco s
@@ -22,14 +36,14 @@ $pageTitle = "All saccos";
 ob_start();
 ?>
 
-<div class="container mt-5">
+<div>
     <h2>Saccos and their Assigned Sacco Admins</h2>
 
     <?php
     // Check if there are results
     if ($result && mysqli_num_rows($result) > 0) {
         ?>
-        <table class="table table-bordered">
+        <table>
             <thead>
             <tr>
                 <th>Sacco ID</th>
@@ -50,9 +64,9 @@ ob_start();
                     <td><?php echo $row["admin_id"]; ?></td>
                     <td><?php echo $row["admin_first_name"] . " " . $row["admin_last_name"]; ?></td>
                     <td>
-                        <form action="delete_sacco.php" method="post">
+                        <form action="saccos.php" method="post">
                             <input type="hidden" name="sacco_id" value="<?php echo $row['sacco_id']; ?>">
-                            <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this Sacco?')">Delete</button>
+                            <button type="submit" name="delete_sacco" onclick="return confirm('Are you sure you want to delete this Sacco?')">Delete</button>
                         </form>
                     </td>
                 </tr>

@@ -36,67 +36,50 @@ $adminInfo = mysqli_fetch_assoc($adminResult);
 ?>
 
 
-<div class="container mt-4">
-    <h2 class="mb-4">Sacco Admin Dashboard</h2>
-    <p class="mb-4">Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
+<div>
+    <h2>Sacco Admin Dashboard</h2>
+    <p>Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
 
     <?php if ($adminInfo['sacco_name']) : ?>
-        <p class="mb-4">You are associated with the Sacco: <?php echo $adminInfo['sacco_name']; ?></p>
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-                <div class="card border-primary h-100 rounded shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title mb-3">Add Vehicle</h5>
-                        <p class="card-text">Add a new vehicle to the Sacco fleet.</p>
-                        <a href="add_vehicle.php" class="btn btn-primary">Go to Add Vehicle</a>
-                    </div>
-                </div>
+        <p>You are associated with the Sacco: <?php echo $adminInfo['sacco_name']; ?></p>
+        <div>
+            <div>
+                <h5>Add Vehicle</h5>
+                <p>Add a new vehicle to the Sacco fleet.</p>
+                <a href="add_vehicle.php">Go to Add Vehicle</a>
             </div>
 
-            <div class="col">
-                <div class="card border-success h-100 rounded shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title mb-3">View Vehicles</h5>
-                        <p class="card-text">View and manage the existing vehicles in the Sacco.</p>
-                        <a href="view_vehicles.php" class="btn btn-success">Go to View Vehicles</a>
-                    </div>
-                </div>
+            <div>
+                <h5>View Vehicles</h5>
+                <p>View and manage the existing vehicles in the Sacco.</p>
+                <a href="view_vehicles.php">Go to View Vehicles</a>
             </div>
 
-            <div class="col">
-                <div class="card border-info h-100 rounded shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title mb-3">Add Schedule</h5>
-                        <p class="card-text">Create a new travel schedule for the Sacco.</p>
-                        <a href="add_schedule.php" class="btn btn-info">Go to Add Schedule</a>
-                    </div>
-                </div>
+            <div>
+                <h5>Add Schedule</h5>
+                <p>Create a new travel schedule for the Sacco.</p>
+                <a href="add_schedule.php">Go to Add Schedule</a>
             </div>
 
-            <div class="col">
-                <div class="card border-warning h-100 rounded shadow">
-                    <div class="card-body text-center">
-                        <h5 class="card-title mb-3">View Travel Schedules</h5>
-                        <p class="card-text">View and manage the existing travel schedules in the Sacco.</p>
-                        <a href="travel_schedules.php" class="btn btn-warning">Go to View Travel Schedules</a>
-                    </div>
-                </div>
+            <div>
+                <h5>View Travel Schedules</h5>
+                <p>View and manage the existing travel schedules in the Sacco.</p>
+                <a href="travel_schedules.php">Go to View Travel Schedules</a>
             </div>
         </div>
     <?php else : ?>
-        <p class="mb-4">You are not currently associated with any Sacco.</p>
+        <p>You are not currently associated with any Sacco.</p>
     <?php endif; ?>
 
     <!-- Logout link -->
-    <a href="logout.php" class="btn btn-danger mt-4">Logout</a>
+    <a href="logout.php">Logout</a>
 </div>
-
-
 
 <?php
 // Close the database connection
 mysqli_close($conn);
 ?>
+
 <?php
 // Get the buffered content and assign it to $content
 $pageContent = ob_get_clean();

@@ -12,129 +12,129 @@ $loggedIn = isset($_SESSION["user"]) && is_array($_SESSION["user"]);
 $userName = $loggedIn ? ($_SESSION["user"]["first_name"] . " " . $_SESSION["user"]["last_name"]) : "";
 ?>
 
-<div class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h5 class="card-title">Contact Us Today!</h5>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <style>
+        /* Prefix all CSS selectors with .contact-us to avoid conflicts */
+        .contact-us body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .contact-us .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .contact-us h1 {
+            text-align: center;
+        }
+        .contact-us .contact-form {
+            margin-top: 20px;
+        }
+        .contact-us .form-group {
+            margin-bottom: 20px;
+        }
+        .contact-us label {
+            font-weight: bold;
+        }
+        .contact-us input[type="text"],
+        .contact-us input[type="email"],
+        .contact-us textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        .contact-us textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        .contact-us input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .contact-us input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .contact-us .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            border-radius: 4px;
+            padding: 10px;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="contact-us">
+    <div class="container">
+        <h1>Contact Us</h1>
+
+        <!-- Success message section -->
+        <div class="success-message" id="success-message">
+            Thank you for contacting us! We will get back to you soon.
         </div>
-        <div class="card-body">
-            <form class="form-horizontal" action=" " method="post" id="contact_form">
 
-                <!-- Text input-->
+        <div class="contact-form">
+            <form action="#" method="post">
                 <div class="form-group">
-                    <label class="col-md-4 control-label">First Name</label>
-                    <div class="col-md-8">
-                        <input name="first_name" placeholder="First Name" class="form-control" type="text">
-                    </div>
+                    <label for="name">Your Name:</label>
+                    <input type="text" id="name" name="name" required>
                 </div>
-
-                <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Last Name</label>
-                    <div class="col-md-8">
-                        <input name="last_name" placeholder="Last Name" class="form-control" type="text">
-                    </div>
+                    <label for="email">Your Email:</label>
+                    <input type="email" id="email" name="email" required>
                 </div>
-
-                <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label">E-Mail</label>
-                    <div class="col-md-8">
-                        <input name="email" placeholder="E-Mail Address" class="form-control" type="text">
-                    </div>
+                    <label for="message">Message:</label>
+                    <textarea id="message" name="message" required></textarea>
                 </div>
-
-                <!-- Text input-->
                 <div class="form-group">
-                    <label class="col-md-4 control-label">Phone #</label>
-                    <div class="col-md-8">
-                        <input name="phone" placeholder="(845)555-1212" class="form-control" type="text">
-                    </div>
+                    <input type="submit" value="Submit" id="submit-btn">
                 </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Address</label>
-                    <div class="col-md-8">
-                        <input name="address" placeholder="Address" class="form-control" type="text">
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">City</label>
-                    <div class="col-md-8">
-                        <input name="city" placeholder="City" class="form-control" type="text">
-                    </div>
-                </div>
-
-                <!-- Select Basic -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">State</label>
-                    <div class="col-md-8">
-                        <select name="state" class="form-control selectpicker">
-                            <option value=" ">Please select your state</option>
-                            <option>Alabama</option>
-                            <option>Alaska</option>
-                            <option>Arizona</option>
-                            <!-- Add more options as needed -->
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Zip Code</label>
-                    <div class="col-md-8">
-                        <input name="zip" placeholder="Zip Code" class="form-control" type="text">
-                    </div>
-                </div>
-
-                <!-- Text input-->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Website or Domain Name</label>
-                    <div class="col-md-8">
-                        <input name="website" placeholder="Website or Domain Name" class="form-control" type="text">
-                    </div>
-                </div>
-
-                <!-- Radio checks -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Do you have hosting?</label>
-                    <div class="col-md-8">
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="hosting" value="yes">
-                            <label class="form-check-label">Yes</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" name="hosting" value="no">
-                            <label class="form-check-label">No</label>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Text area -->
-                <div class="form-group">
-                    <label class="col-md-4 control-label">Project Description</label>
-                    <div class="col-md-8">
-                        <textarea class="form-control" name="comment" placeholder="Project Description"></textarea>
-                    </div>
-                </div>
-
-                <!-- Success message -->
-                <div class="alert alert-success" role="alert" id="success_message">Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.</div>
-
-                <!-- Button -->
-                <div class="form-group">
-                    <div class="col-md-8 offset-md-4">
-                        <button type="submit" class="btn btn-warning">Send <span class="glyphicon glyphicon-send"></span></button>
-                    </div>
-                </div>
-
             </form>
         </div>
     </div>
 </div>
+
+<!-- Include jQuery for easier handling of DOM manipulation -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+    $(document).ready(function(){
+        // Submit form handling
+        $(".contact-us form").submit(function(event){
+            // Prevent default form submission
+            event.preventDefault();
+
+            // You can add your form submission logic here
+            // For demonstration, let's show the success message
+            $(".contact-us .success-message").fadeIn(); // Show the success message
+            $(".contact-us form")[0].reset(); // Reset the form fields
+        });
+    });
+</script>
+
+</body>
+</html>
+
+
 
 <?php
 // Get the buffered content and assign it to $content

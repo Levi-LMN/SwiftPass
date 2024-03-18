@@ -74,81 +74,47 @@ if (!$bookingsResult) {
 }
 ?>
 
+<h2>View Bookings for Schedule <?php echo $scheduleDetails['departure_location'] . ' to ' . $scheduleDetails['destination']; ?></h2>
 
-<div class="container mt-4">
-    <h2>View Bookings for Schedule <?php echo $scheduleDetails['departure_location'] . ' to ' . $scheduleDetails['destination']; ?></h2>
+<table>
+    <tr>
+        <td>Driver Information</td>
+        <td>Driver: <?php echo $driverInfo['first_name'] . ' ' . $driverInfo['last_name']; ?></td>
+    </tr>
+</table>
 
-    <div class="row">
-        <div class="col-lg-4 mb-4">
-            <div class="card h-100 shadow">
-                <div class="card-header bg-primary text-white">
-                    <h3 class="card-title">Driver Information</h3>
-                </div>
-                <div class="card-body">
-                    <p class="lead">Driver: <?php echo $driverInfo['first_name'] . ' ' . $driverInfo['last_name']; ?></p>
-                </div>
-            </div>
-        </div>
+<table>
+    <tr>
+        <td>Schedule Details</td>
+        <td>Departure Location: <?php echo $scheduleDetails['departure_location']; ?></td>
+        <td>Destination: <?php echo $scheduleDetails['destination']; ?></td>
+        <td>Departure Time: <?php echo $scheduleDetails['departure_time']; ?></td>
+        <td>Price: <?php echo $scheduleDetails['price']; ?></td>
+        <td>Vehicle Make: <?php echo $scheduleDetails['vehicle_make']; ?></td>
+        <td>Vehicle Model: <?php echo $scheduleDetails['vehicle_model']; ?></td>
+        <td>Vehicle Plate: <?php echo $scheduleDetails['vehicle_plate']; ?></td>
+    </tr>
+</table>
 
-        <div class="col-lg-4 mb-4">
-            <div class="card h-100 shadow">
-                <div class="card-header bg-success text-white">
-                    <h3 class="card-title">Schedule Details</h3>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">Departure Location: <?php echo $scheduleDetails['departure_location']; ?></p>
-                    <p class="card-text">Destination: <?php echo $scheduleDetails['destination']; ?></p>
-                    <p class="card-text">Departure Time: <?php echo $scheduleDetails['departure_time']; ?></p>
-                    <p class="card-text">Price: <?php echo $scheduleDetails['price']; ?></p>
-                    <p class="card-text">Vehicle Make: <?php echo $scheduleDetails['vehicle_make']; ?></p>
-                    <p class="card-text">Vehicle Model: <?php echo $scheduleDetails['vehicle_model']; ?></p>
-                    <p class="card-text">Vehicle Plate: <?php echo $scheduleDetails['vehicle_plate']; ?></p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 mb-4">
-            <?php if (mysqli_num_rows($bookingsResult) > 0) : ?>
-                <div class="card h-100 shadow">
-                    <div class="card-header bg-info text-white">
-                        <h3 class="card-title">Bookings</h3>
-                    </div>
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead class="thead-dark">
-                                <tr>
-                                    <th>Seat Number</th>
-                                    <th>Passenger Name</th>
-                                    <!-- Add more columns based on your requirements -->
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <?php while ($booking = mysqli_fetch_assoc($bookingsResult)) : ?>
-                                    <tr>
-                                        <td><?php echo $booking['seat_number']; ?></td>
-                                        <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
-                                        <!-- Add more columns based on your requirements -->
-                                    </tr>
-                                <?php endwhile; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            <?php else : ?>
-                <div class="alert alert-warning" role="alert">
-                    No bookings found for this schedule.
-                </div>
-            <?php endif; ?>
-        </div>
-    </div>
-
-    <!-- Link back to the driver dashboard -->
-    <a href="driver_dashboard.php" class="btn btn-primary mt-4">Back to Driver Dashboard</a>
-</div>
-
-
+<?php if (mysqli_num_rows($bookingsResult) > 0) : ?>
+    <table>
+        <tr>
+            <td>Bookings</td>
+        </tr>
+        <tr>
+            <th>Seat Number</th>
+            <th>Passenger Name</th>
+        </tr>
+        <?php while ($booking = mysqli_fetch_assoc($bookingsResult)) : ?>
+            <tr>
+                <td><?php echo $booking['seat_number']; ?></td>
+                <td><?php echo $booking['first_name'] . ' ' . $booking['last_name']; ?></td>
+            </tr>
+        <?php endwhile; ?>
+    </table>
+<?php else : ?>
+    <p>No bookings found for this schedule.</p>
+<?php endif; ?>
 
 <?php
 // Close the database connection

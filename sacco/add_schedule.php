@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-
 // Set page title for the layout
 $pageTitle = "Add vehicle";
 
@@ -15,7 +14,7 @@ if (!isset($_SESSION["user"]) || $_SESSION["user"]["role"] !== 'sacco admin') {
     exit();
 }
 
-//  database connection
+// Database connection
 include '../auth/database.php';
 
 // Retrieve the Sacco admin's information from the User table
@@ -37,7 +36,7 @@ $adminInfo = mysqli_fetch_assoc($adminResult);
 
 // Check if the Sacco admin is associated with a Sacco
 if (!$adminInfo['sacco_name']) {
-    //  show an error message
+    // Show an error message
     echo "You are not currently associated with any Sacco.";
     exit();
 }
@@ -50,7 +49,6 @@ $vehiclesResult = mysqli_query($conn, $vehiclesQuery);
 if (!$vehiclesResult) {
     die("Error fetching vehicles: " . mysqli_error($conn));
 }
-
 
 // Process the form submission to add a travel schedule
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -76,62 +74,54 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+<div>
+    <div>
+        <h2>Add Travel Schedule</h2>
+    </div>
+    <div>
+        <p>Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
+        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+            <div>
+                <label>Departure Location:</label>
+                <input type="text" name="departure_location" required>
+            </div>
 
+            <div>
+                <label>Destination:</label>
+                <input type="text" name="destination" required>
+            </div>
 
-<div class="container mt-4">
-    <div class="card">
-        <div class="card-header">
-            <h2 class="mb-0">Add Travel Schedule</h2>
-        </div>
-        <div class="card-body">
-            <p class="card-text">Welcome, <?php echo $adminInfo['first_name'] . ' ' . $adminInfo['last_name']; ?>!</p>
-            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                <div class="form-group">
-                    <label for="departure_location">Departure Location:</label>
-                    <input type="text" name="departure_location" class="form-control" required>
-                </div>
+            <div>
+                <label>Departure Time:</label>
+                <input type="datetime-local" name="departure_time" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="destination">Destination:</label>
-                    <input type="text" name="destination" class="form-control" required>
-                </div>
+            <div>
+                <label>Price:</label>
+                <input type="number" name="price" required>
+            </div>
 
-                <div class="form-group">
-                    <label for="departure_time">Departure Time:</label>
-                    <input type="datetime-local" name="departure_time" class="form-control" required>
-                </div>
+            <div>
+                <label>Select Vehicle:</label>
+                <select name="vehicle_id" required>
+                    <!-- Placeholder option -->
+                    <option value="" disabled selected>Select Vehicle</option>
 
-                <div class="form-group">
-                    <label for="price">Price:</label>
-                    <input type="number" name="price" class="form-control" required>
-                </div>
+                    <?php while ($vehicle = mysqli_fetch_assoc($vehiclesResult)) : ?>
+                        <option value="<?php echo $vehicle['id']; ?>">
+                            <?php echo $vehicle['make'] . ' ' . $vehicle['model'] . (isset($vehicle['registration_plate']) ? ' - ' . $vehicle['registration_plate'] : ''); ?>
+                        </option>
+                    <?php endwhile; ?>
+                </select>
+            </div>
 
-                <div class="form-group">
-                    <label for="vehicle_id">Select Vehicle:</label>
-                    <select name="vehicle_id" class="form-control" required>
-                        <!-- Placeholder option -->
-                        <option value="" disabled selected>Select Vehicle</option>
-
-                        <?php while ($vehicle = mysqli_fetch_assoc($vehiclesResult)) : ?>
-                            <option value="<?php echo $vehicle['id']; ?>">
-                                <?php echo $vehicle['make'] . ' ' . $vehicle['model'] . (isset($vehicle['registration_plate']) ? ' - ' . $vehicle['registration_plate'] : ''); ?>
-                            </option>
-                        <?php endwhile; ?>
-                    </select>
-                </div>
-
-                <button type="submit" class="btn btn-primary">Add Travel Schedule</button>
-            </form>
-        </div>
-        <div class="card-footer">
-            <a href="sacco_admin_dashboard.php" class="btn btn-secondary">Back to Admin Dashboard</a>
-        </div>
+            <button type="submit">Add Travel Schedule</button>
+        </form>
+    </div>
+    <div>
+        <a href="sacco_admin_dashboard.php">Back to Admin Dashboard</a>
     </div>
 </div>
-
-
-
-
 
 <?php
 // Get the buffered content and assign it to $content
