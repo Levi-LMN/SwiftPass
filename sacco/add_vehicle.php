@@ -9,7 +9,7 @@ ob_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION["user"])) {
-    // Redirect to the login page or handle the case where the user is not logged in
+    // Redirect to the login page
     header("Location: login.php");
     exit();
 }

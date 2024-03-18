@@ -7,8 +7,8 @@ $pageTitle = "View Travel Schedules";
 // Content for the layout
 ob_start();
 
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+// database connection
+include '../auth/database.php';
 
 // Process the delete request
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_schedule'])) {

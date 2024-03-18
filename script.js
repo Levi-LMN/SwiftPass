@@ -65,3 +65,41 @@ function showSlider(type){
     }, timeAutoNext)
 }
 
+//script for the checkout page
+function showLoadingSpinner() {
+    // Get the phone number from the input field
+    const phoneNumber = document.getElementById('phoneNumber').value;
+
+    // Validate if the phone number is provided
+    if (!phoneNumber) {
+        alert("Please enter your phone number.");
+        return;
+    }
+
+    // Disable the button to prevent multiple submissions
+    document.querySelector('#bookModal button[type="button"]').disabled = true;
+
+    // Hide the form and show the loading spinner
+    document.getElementById('loadingSpinner').style.display = 'block';
+    document.getElementById('bookingForm').style.display = 'none';
+
+    // Simulate a loading delay (5 seconds)
+    setTimeout(() => {
+        // Hide the loading spinner and show the payment received message
+        document.getElementById('loadingSpinner').style.display = 'none';
+        document.getElementById('paymentReceivedMessage').style.display = 'block';
+
+        // Set the phone number in a hidden input field
+        const phoneNumberInput = document.createElement('input');
+        phoneNumberInput.type = 'hidden';
+        phoneNumberInput.name = 'phone_number';
+        phoneNumberInput.value = phoneNumber;
+        document.getElementById('bookingForm').appendChild(phoneNumberInput);
+
+        // Simulate another delay (2 seconds) before submitting the form
+        setTimeout(() => {
+            // Manually submit the form
+            document.getElementById('bookingForm').submit();
+        }, 2000);
+    }, 5000); // 5 seconds delay
+}

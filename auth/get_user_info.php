@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Include database configuration
-include 'database.php'; // Update with your actual database configuration
+include 'database.php';
 
 // Retrieve user information based on the session user_id
 $user_id = $_SESSION['user_id'];

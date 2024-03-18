@@ -5,8 +5,8 @@ $pageTitle = "Checkout Page";
 // Content for the layout
 ob_start();
 
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+// database connection
+include '../auth/database.php';
 
 // Check if the schedule ID and selected seats are provided in the query parameters
 if (!isset($_GET['schedule_id']) || !is_numeric($_GET['schedule_id']) || !isset($_GET['seats'])) {
@@ -52,6 +52,9 @@ $scheduleDetails = mysqli_fetch_assoc($scheduleResult);
 // Calculate total price based on the number of selected seats
 $totalPrice = $scheduleDetails['price'] * count(explode(',', $selectedSeats));
 ?>
+
+
+
 
 <div class="container mt-5">
     <div class="row">
@@ -103,8 +106,12 @@ $totalPrice = $scheduleDetails['price'] * count(explode(',', $selectedSeats));
                         <!-- Additional form fields (e.g., payment information) can be added here -->
                         <input type="hidden" name="schedule_id" value="<?php echo $scheduleDetails['id']; ?>">
                         <input type="hidden" name="seats" value="<?php echo $selectedSeats; ?>">
-                        <input type="submit" class="btn btn-primary mt-3" value="Book Now">
+<!--                        <input type="submit" class="btn btn-primary mt-3" value="Book Now">-->
                     </form>
+
+                    <!-- Add the "Pay" button to trigger the modal -->
+                    <button type="button" class="btn btn-success mt-3" data-toggle="modal" data-target="#bookModal">Pay</button>
+
 
                     <!-- Back to ticketing page or any other desired page -->
                     <a href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>" class="btn btn-secondary mt-3">Back to Ticketing</a>
@@ -114,6 +121,54 @@ $totalPrice = $scheduleDetails['price'] * count(explode(',', $selectedSeats));
     </div>
 </div>
 
+
+
+
+
+<!-- Add a Bootstrap modal -->
+<div class="modal" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="bookModalLabel">Book Now</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>Please enter your phone number:</p>
+                <!-- Phone number input field -->
+                <input type="text" class="form-control mb-3" id="phoneNumber" placeholder="Enter your phone number" required>
+
+                <!-- Loading spinner with message -->
+                <div class="text-center mb-3" id="loadingSpinner" style="display: none;">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <div class="mt-2">Waiting for payment...</div>
+                </div>
+
+                <!-- Payment received message -->
+                <div class="text-center mb-3" id="paymentReceivedMessage" style="display: none;">
+                    <div class="alert alert-success" role="alert">
+                        Payment received! Redirecting...
+                    </div>
+                </div>
+
+                <!-- Booking form -->
+                <form id="bookingForm" method="post" action="process_booking.php">
+                    <input type="hidden" name="schedule_id" value="<?php echo $scheduleDetails['id']; ?>">
+                    <input type="hidden" name="seats" value="<?php echo $selectedSeats; ?>">
+                    <button type="button" class="btn btn-primary" onclick="showLoadingSpinner()">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+</script>
 <?php
 // Get the buffered content and assign it to $content
 $pageContent = ob_get_clean();

@@ -50,6 +50,7 @@ ob_start();
     <p class="mt-3"><a href="schedules.php" class="btn btn-primary">Book Another Seat</a></p>
 </div>
 
+
 <?php
 // Get the buffered content and assign it to $content
 $pageContent = ob_get_clean();

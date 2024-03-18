@@ -15,7 +15,7 @@ if (isset($_SESSION["user"])) {
     exit();
 }
 
-include 'database.php'; // Update with your actual file path
+include 'database.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $email = $_POST['email'];

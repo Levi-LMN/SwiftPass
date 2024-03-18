@@ -693,7 +693,7 @@ body {
 .footer-col ul li:not(:last-child) {
     margin-bottom: 10px;
 }
-/* ... Your existing CSS ... */
+
 
 /* Styling the copyright section */
 .copyright {
@@ -707,4 +707,4 @@ body {
     color: #bbb; /* Set the text color */
 }
 
-/* ... The rest of your CSS ... */
+

@@ -14,8 +14,8 @@ if (!isset($_SESSION["user"])) {
     exit();
 }
 
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+// db connect
+include '../auth/database.php';
 
 // Retrieve the Sacco admin's information from the User table
 $adminId = $_SESSION["user"]["id"]; // Assuming "id" is the unique identifier for the user

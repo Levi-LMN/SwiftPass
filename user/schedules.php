@@ -8,8 +8,8 @@ $pageTitle = "Schedules";
 // Content for the layout
 ob_start();
 
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+// db page
+include '../auth/database.php';
 
 // Retrieve all travel schedules with the count of booked seats that are not marked as done
 $schedulesQuery = "SELECT ts.*, v.make, v.model, s.name AS sacco_name,

@@ -26,7 +26,7 @@ ob_start();
 
 <?php
 // Include database configuration
-include 'database.php'; // Update with your actual database configuration
+include 'database.php';
 
 // Check if the form is submitted
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $password = $_POST['password'];
     $role = $_POST['role']; // Selected role from the dropdown
 
-    // Hash the password (For better security, consider using password_hash())
+    // Hash the password
     $hashed_password = md5($password);
 
     // Insert user data into the User table

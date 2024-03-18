@@ -9,13 +9,13 @@ ob_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION["user"])) {
-    // Redirect to the login page or handle the case where the user is not logged in
+    // Redirect to the login page
     header("Location: login.php");
     exit();
 }
 
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+// database connection
+include '../auth/database.php';
 
 // Retrieve the driver's information from the User table
 $driverId = $_SESSION["user"]["id"];
@@ -36,7 +36,7 @@ $driverInfo = mysqli_fetch_assoc($driverResult);
 
 // Check if the driver is associated with a vehicle
 if (!$driverInfo['make']) {
-    // Redirect to a page with appropriate access or show an error message
+    // error
     echo "You are not currently associated with any vehicle.";
     exit();
 }

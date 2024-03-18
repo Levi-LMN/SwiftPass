@@ -4,8 +4,8 @@ $pageTitle = "User bookings Page";
 
 // Content for the layout
 ob_start();
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+
+include '../auth/database.php';
 
 // Check if the user is logged in
 session_start();

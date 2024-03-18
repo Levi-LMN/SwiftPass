@@ -1,5 +1,5 @@
 <?php
-include '../auth/database.php';
+include '../auth/database.php';//db connection
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['schedule_id'])) {
     $scheduleId = $_GET['schedule_id'];

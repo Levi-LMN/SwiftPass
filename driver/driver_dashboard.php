@@ -9,13 +9,13 @@ ob_start();
 
 // Check if the user is logged in
 if (!isset($_SESSION["user"])) {
-    // Redirect to the login page or handle the case where the user is not logged in
+    // Redirect to the login page
     header("Location: login.php");
     exit();
 }
 
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+//  database connection
+include '../auth/database.php';
 
 // Retrieve the driver's information from the User table
 $driverId = $_SESSION["user"]["id"];
@@ -36,10 +36,9 @@ $driverInfo = mysqli_fetch_assoc($driverResult);
 
 // Check if the driver is associated with a vehicle
 if (!$driverInfo['make']) {
-    // Redirect to a page with appropriate access or show an error message
+
     $errorMessage = "You are not currently associated with any vehicle.";
-    // You can customize this message as needed.
-    // exit(); // You may or may not need to exit here depending on your flow.
+
 }
 
 // Process the form submission to toggle the is_done status
@@ -50,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_is_done'])) {
     $toggleIsDoneQuery = "UPDATE TravelSchedule SET is_done = 1 - is_done WHERE id = '$scheduleIdToToggle'";
     if (mysqli_query($conn, $toggleIsDoneQuery)) {
         // Success message
-        // You may want to refresh the page or redirect to update the displayed schedule list
+
         $successMessage = "Is Done status toggled successfully!";
     } else {
         // Error message

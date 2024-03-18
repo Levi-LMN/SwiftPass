@@ -4,8 +4,8 @@ $pageTitle = "Booking details";
 
 // Content for the layout
 ob_start();
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+// db connect
+include '../auth/database.php';
 
 // Check if the schedule ID is provided in the query parameters
 if (!isset($_GET['schedule_id']) || !is_numeric($_GET['schedule_id'])) {

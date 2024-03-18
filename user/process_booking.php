@@ -1,6 +1,6 @@
 <?php
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+//  database connection
+include '../auth/database.php';
 
 // Check if the user is logged in
 session_start();
@@ -85,10 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['schedule_id']) && iss
     } else {
         $resultMessage = "Booking successful! Your total ticket price is: $totalPrice. Details: " . implode(', ', $bookedTicketDetails);
 
-        // Additional actions after successful booking (e.g., redirect, send confirmation email)
+
         $email = $_SESSION['user']['email'];
         // TODO: Send the ticket details to the user's email (implement this part)
-        // mail($email, 'Ticket Booking Confirmation', $resultMessage);
+
     }
     header("Location: result.php?message=$resultMessage");
 } else {

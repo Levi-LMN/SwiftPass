@@ -10,16 +10,16 @@ ob_start();
 
 // Check if the user is logged in and has the role 'sacco admin'
 if (!isset($_SESSION["user"]) || $_SESSION["user"]["role"] !== 'sacco admin') {
-    // Redirect to the login page or handle the case where the user is not logged in or not a sacco admin
+    // Redirect to the login page
     header("Location: login.php");
     exit();
 }
 
-// Include your database connection code here
-include '../auth/database.php'; // Update with your actual database connection file
+//  database connection
+include '../auth/database.php';
 
 // Retrieve the Sacco admin's information from the User table
-$adminId = $_SESSION["user"]["id"]; // Assuming "id" is the unique identifier for the user
+$adminId = $_SESSION["user"]["id"];
 $adminQuery = "SELECT u.*, s.name AS sacco_name
                 FROM User u
                 LEFT JOIN Sacco s ON u.sacco_id = s.id
@@ -37,7 +37,7 @@ $adminInfo = mysqli_fetch_assoc($adminResult);
 
 // Check if the Sacco admin is associated with a Sacco
 if (!$adminInfo['sacco_name']) {
-    // Redirect to a page with appropriate access or show an error message
+    //  show an error message
     echo "You are not currently associated with any Sacco.";
     exit();
 }
@@ -77,9 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 
-<?php
-// ... (previous PHP code remains unchanged)
-?>
 
 <div class="container mt-4">
     <div class="card">
