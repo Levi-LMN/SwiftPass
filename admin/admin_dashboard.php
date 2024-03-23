@@ -13,40 +13,44 @@ if ($user["role"] != 'admin') {
 }
 ?>
 
-<div>
-    <h2>Hello <?php echo $user['first_name']; ?>, welcome to the admin panel</h2>
-    <hr>
-    <!--logout-->
-    <div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+
+</head>
+<body>
+<div class="container">
+    <div class="card">
         <h5>Logout</h5>
         <p>Click here to logout from the admin panel.</p>
         <a href="../auth/logout.php">Logout</a>
     </div>
-    <!--all users-->
-    <div>
+    <div class="card">
         <h5>All Users</h5>
         <p>View all users registered in the system.</p>
-        <a href="users.php">All Users</a>
+        <a href="users.php">View All Users</a>
     </div>
-    <!--change user roles-->
-    <div>
+    <div class="card">
         <h5>Change User Roles</h5>
         <p>Change the roles of existing users.</p>
         <a href="change_user_roles.php">Change User Roles</a>
     </div>
-    <!--add sacco-->
-    <div>
+    <div class="card">
         <h5>Add Sacco</h5>
         <p>Add a new Sacco to the system.</p>
-        <a href="add_sacco.php">Add Sacco</a>
+        <a href="add_sacco.php">Add New Sacco</a>
     </div>
-    <!--all saccos-->
-    <div>
+    <div class="card">
         <h5>All Saccos</h5>
-        <p>View all saccos system.</p>
-        <a href="saccos.php">View Sacco</a>
+        <p>View all saccos in the system.</p>
+        <a href="saccos.php">View All Saccos</a>
     </div>
 </div>
+</body>
+</html>
 
 <?php
 // Set page title for the layout
