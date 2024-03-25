@@ -31,10 +31,6 @@ if ($loggedIn) {
 
 
 
-
-
-
-
 <div>
 
     <?php if ($loggedIn): ?>
