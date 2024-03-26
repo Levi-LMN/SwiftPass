@@ -7,11 +7,17 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
-    $searchTerm = $_GET["search"];
+if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["q"])) {
+    $searchTerm = $_GET["q"];
+
+    // Debug: Echo out the search term
+    echo "Search Term: " . $searchTerm . "<br>";
 
     // Sanitize the input to prevent SQL injection
     $searchTerm = mysqli_real_escape_string($conn, $searchTerm);
+
+    // Debug: Echo out the sanitized search term
+    echo "Sanitized Search Term: " . $searchTerm . "<br>";
 
     // Query to search for travel schedules based on the departure_location, destination, or sacco name
     $query = "SELECT travelschedule.* FROM travelschedule
@@ -20,6 +26,9 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" && isset($_GET["search"])) {
               WHERE travelschedule.departure_location LIKE '%$searchTerm%' 
                  OR travelschedule.destination LIKE '%$searchTerm%'
                  OR sacco.name LIKE '%$searchTerm%'";
+
+    // Debug: Echo out the query
+    echo "Query: " . $query . "<br>";
 
     $result = mysqli_query($conn, $query);
 

@@ -51,6 +51,12 @@ $navItems = [
 <div class="navbar">
     <a href="<?php echo $baseUrl; ?>" class="navbar-brand">Swiftpass</a>
     <div class="navbar-links">
+        <!-- Search Box -->
+        <form action="<?php echo $baseUrl; ?>/search_schedule.php" method="GET" class="search-form">
+            <input type="text" name="q" placeholder="Search...">
+            <button type="submit">Search</button>
+        </form>
+
         <?php foreach ($navItems as $label => $link) : ?>
             <?php if (is_array($link)) : ?>
                 <div class="dropdown">
