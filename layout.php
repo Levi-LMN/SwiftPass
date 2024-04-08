@@ -23,13 +23,14 @@ $navItems = [
     'Home' => '/',
     'About us' => '/user/about.php', // Adjust the path accordingly
     'Contact us' => '/user/contact_us.php', // Adjust the path accordingly,
+
+    'Tickets' => '/user/user_bookings.php', // Adjust the path accordingly
+    'FAQs' => '/user/FAQs.php',
     'User\'s account' => [
         'User\'s profile' => '/profile.php', // Adjust the path accordingly
         'History' => '/user/user_bookings.php', // Adjust the path accordingly
         'Logout' => '/auth/logout.php', // Adjust the path accordingly
-    ],
-    'Tickets' => '/user/user_bookings.php', // Adjust the path accordingly
-    'FAQs' => '/user/FAQs.php'
+    ]
 ];
 ?>
 
@@ -43,13 +44,14 @@ $navItems = [
     <title><?php echo $pageTitle; ?></title>
 
     <style>
-        <?php include "style.css" ?>
+        <?php include "static/user/layout.css" ?>
     </style>
 </head>
 <body>
 
 <div class="navbar">
     <a href="<?php echo $baseUrl; ?>" class="navbar-brand">Swiftpass</a>
+    <button class="toggle-menu">&#9776;</button> <!-- Hamburger menu icon -->
     <div class="navbar-links">
         <!-- Search Box -->
         <form action="<?php echo $baseUrl; ?>/search_schedule.php" method="GET" class="search-form">
@@ -95,6 +97,6 @@ $navItems = [
     </div>
 </footer>
 
-
+<script src="static/user/layout.js"></script>
 </body>
 </html>

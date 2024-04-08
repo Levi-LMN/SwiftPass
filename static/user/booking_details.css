@@ -1,0 +1,94 @@
+/* General styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Schedule details */
+.schedule-details {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.schedule-details h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.schedule-details p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* User details */
+.user-details {
+    margin-top: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.user-details h3 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.user-details p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Error message */
+.error-message {
+    color: #dc3545;
+    font-size: 18px;
+    margin-top: 20px;
+}
+
+/* Ticket link */
+.ticket-link {
+    display: inline-block;
+    padding: 12px 24px;
+    background-color: #ffb400;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background-color 0.3s;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.ticket-link:hover {
+    background-color: #ff9500; /* Slightly darker shade for hover */
+}
+
+/* Back link */
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    color: #007bff; /* Changed to blue color */
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s;
+}
+
+.back-link:hover {
+    color: #0056b3; /* Darker shade for hover */
+    text-decoration: underline;
+}

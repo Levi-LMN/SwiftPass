@@ -1,0 +1,225 @@
+/* style.css */
+
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f8f9fa; /* Light background color */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure the body takes up at least the height of the viewport */
+}
+
+main {
+    flex: 1; /* Allow main content to grow and take up remaining space */
+}
+
+.navbar {
+    background: linear-gradient(to right, #343a40, #343a40); /* Dark gradient background */
+    color: #fff;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+}
+
+.navbar-brand {
+    text-decoration: none;
+    color: #ffc107; /* Navbar brand color */
+    font-size: 24px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* Text shadow for depth */
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-links a,
+.dropbtn {
+    text-decoration: none;
+    color: #fff;
+    padding: 10px;
+    margin: 0 5px;
+    transition: color 0.3s ease;
+}
+
+.navbar-links a:hover,
+.dropbtn:hover {
+    color: #ffc107; /* Navbar link hover color */
+}
+
+.search-form {
+    margin-right: auto;
+}
+
+.search-form input[type="text"] {
+    padding: 8px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.search-form button {
+    padding: 8px 15px;
+    background-color: #ffc107; /* Search button background color */
+    color: #343a40; /* Search button text color */
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.search-form button:hover {
+    background-color: #ffca2c; /* Darker search button background color on hover */
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown button {
+    background-color: #ffc107; /* Dropdown button background color */
+    color: #343a40; /* Dropdown button text color */
+    border: none;
+    border-radius: 4px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown button:hover {
+    background-color: black; /* Darker dropdown button background color on hover */
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    min-width: 160px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-content a {
+    color: #343a40; /* Dropdown link color */
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-content a:hover {
+    background-color: #f8f9fa; /* Dropdown link background color on hover */
+    color: #343a40; /* Dropdown link text color on hover */
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background: linear-gradient(to right, #343a40, #343a40); /* Dark gradient background */
+    color: #fff;
+    padding: 20px 0; /* Increased padding for footer */
+    text-align: center;
+    box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1); /* Subtle box shadow */
+    margin-top: auto; /* Push the footer to the bottom */
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-text {
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li {
+    display: inline-block;
+    margin: 0 10px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #ffc107; /* Footer link hover color */
+}
+
+/* static/user/layout.css */
+
+/* Add responsive styles here */
+
+/* Example media query for smaller screens */
+@media screen and (max-width: 768px) {
+    .navbar-links {
+        display: none; /* Hide navbar links by default */
+        flex-direction: column; /* Change direction to column */
+        position: absolute;
+        top: 60px; /* Adjust top position based on your navbar height */
+        left: 0;
+        background-color: #343a40; /* Dark background color for dropdown */
+        width: 100%; /* Take up full width */
+    }
+
+    .navbar-links.active {
+        display: flex; /* Display navbar links when active */
+    }
+
+    .navbar-links a,
+    .dropbtn {
+        display: block;
+        padding: 10px;
+        margin: 0;
+        width: 100%; /* Take up full width */
+    }
+
+    .dropdown {
+        position: static;
+    }
+
+    .dropdown-content {
+        position: relative;
+    }
+
+    .toggle-menu {
+        display: block; /* Display hamburger menu icon */
+        background: none;
+        border: none;
+        font-size: 24px;
+        color: #fff;
+        cursor: pointer;
+    }
+}
+
+@media screen and (min-width: 769px) {
+    .toggle-menu {
+        display: none; /* Hide hamburger menu icon on larger screens */
+    }
+}

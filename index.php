@@ -28,37 +28,49 @@ if ($loggedIn) {
 }
 ?>
 
-<?php if ($loggedIn): ?>
-    <h2>Welcome, <?php echo $userName; ?>!</h2>
-    <p>This is your personalized dashboard.</p>
-<?php else: ?>
-    <h1>Welcome to Swiftpass!</h1>
-    <p>Explore our features by signing up or logging in.</p>
-    <a href="auth/login.php">Login</a>
-    <br><br><br>
-    <a href="auth/registration.php">Register</a>
-<?php endif; ?>
 
-<h2>View All Travel Schedules</h2>
-<p>View all travel schedules available in the system.</p>
-<a href="user/schedules.php">View Schedules</a>
 
-<h2>Explore Kenya's Popular Destination Routes</h2>
-<div>
-    <h3>Nairobi to Mombasa</h3>
-    <p>Discover the beauty of coastal landscapes and vibrant city life on our Nairobi to Mombasa route.</p>
-    <small>Date: February 25, 2024</small>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><?php echo $pageTitle; ?></title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <?php if ($loggedIn): ?>
+            <h2 class="dashboard-heading">Welcome, <?php echo $userName; ?>!</h2>
+            <p class="dashboard-text">This is your personalized dashboard.</p>
+
+
+
+    </div>
+    <div class="card">
+        <h2 class="schedule-heading">View All Travel Schedules</h2>
+        <p class="schedule-text">View all travel schedules available in the system.</p>
+        <a href="user/schedules.php" class="view-schedules-link">View Schedules</a>
+    </div>
+    <?php else: ?>
+        <h1 class="welcome-heading">Welcome to Swiftpass!</h1>
+        <p class="welcome-text">Explore our features by signing up or logging in.</p>
+        <div class="login-register-card">
+            <a href="auth/login.php" class="login-register-link">Login</a>
+            <a href="auth/registration.php" class="login-register-link">Register</a>
+        </div>
+    <?php endif; ?>
+
+
 </div>
-<div>
-    <h3>Nakuru to Kisumu</h3>
-    <p>Embark on a scenic journey from Nakuru to Kisumu, surrounded by the breathtaking views of the Great Rift Valley.</p>
-    <small>Date: March 10, 2024</small>
-</div>
-<div>
-    <h3>Kisii to Eldoret</h3>
-    <p>Experience the cultural richness as you travel from Kisii to Eldoret, a journey filled with diverse traditions and landscapes.</p>
-    <small>Date: March 18, 2024</small>
-</div>
+</body>
+</html>
+
 
 <?php
 // Get the buffered content and assign it to $content

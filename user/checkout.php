@@ -54,18 +54,23 @@ $totalPrice = $scheduleDetails['price'] * count(explode(',', $selectedSeats));
 ?>
 
 
-
-
-<div>
-    <div>
-        <div>
-
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title><?php echo $pageTitle; ?></title>
+           <link rel="stylesheet" href="../static/user/checkout.css">
+    </head>
+    <body>
+    <div class="container">
+        <div class="left-column">
             <?php if ($scheduleDetails) : ?>
-                <div>
-                    <div>
+                <div class="card">
+                    <div class="card-header">
                         <h3>Schedule Details</h3>
                     </div>
-                    <div>
+                    <div class="card-body">
                         <p><strong>Departure Location:</strong> <?php echo $scheduleDetails['departure_location']; ?></p>
                         <p><strong>Destination:</strong> <?php echo $scheduleDetails['destination']; ?></p>
                         <p><strong>Departure Time:</strong> <?php echo $scheduleDetails['departure_time']; ?></p>
@@ -77,101 +82,113 @@ $totalPrice = $scheduleDetails['price'] * count(explode(',', $selectedSeats));
                     </div>
                 </div>
             <?php else : ?>
-                <div>
-                    <p>No details found for the provided schedule ID.</p>
-                </div>
+                <div class="alert alert-warning">No details found for the provided schedule ID.</div>
             <?php endif; ?>
         </div>
 
-        <div>
-
+        <div class="right-column">
             <?php if ($scheduleDetails) : ?>
-                <div>
-                    <div>
+                <div class="card">
+                    <div class="card-header">
                         <h3>Selected Seats</h3>
                     </div>
-                    <div>
+                    <div class="card-body">
                         <p><?php echo ($selectedSeats ? 'Seats: ' . $selectedSeats : 'No seats selected.'); ?></p>
                     </div>
                 </div>
 
-                <div>
-                    <div>
+                <div class="card">
+                    <div class="card-header">
                         <h3>Total Price</h3>
                     </div>
-                    <div>
+                    <div class="card-body">
                         <p><?php echo ($totalPrice ? 'Total Price: $' . $totalPrice : 'No total price calculated.'); ?></p>
                     </div>
                 </div>
 
-                <div>
-                    <!-- Add payment form or any additional content here -->
-                    <form method="post" action="process_booking.php">
-                        <!-- Additional form fields (e.g., payment information) can be added here -->
-                        <input type="hidden" name="schedule_id" value="<?php echo $scheduleDetails['id']; ?>">
-                        <input type="hidden" name="seats" value="<?php echo $selectedSeats; ?>">
-                        <!--                        <input type="submit" value="Book Now">-->
-                    </form>
-
-                    <!-- Add the "Pay" button to trigger the modal -->
-                    <button type="button" data-toggle="modal" data-target="#bookModal">Pay</button>
-
-
-                    <!-- Back to ticketing page or any other desired page -->
-                    <a href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>">Back to Ticketing</a>
-                </div>
+                <form method="post" action="process_booking.php">
+                    <input type="hidden" name="schedule_id" value="<?php echo $scheduleDetails['id']; ?>">
+                    <input type="hidden" name="seats" value="<?php echo $selectedSeats; ?>">
+<!--                    <button type="submit" class="btn btn-primary mt-3">Book Now</button>-->
+                </form>
+                <button type="button" class="btn btn-success mt-3" onclick="showModal()">Pay</button>
+                <a href="ticketing_page.php?schedule_id=<?php echo $scheduleDetails['id']; ?>" class="btn btn-secondary mt-3">Back to Ticketing</a>
             <?php endif; ?>
         </div>
     </div>
-</div>
 
-
-
-
-
-<!-- Add a Bootstrap modal -->
-<div class="modal" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="bookModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="bookModalLabel">Book Now</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <p>Please enter your phone number:</p>
-                <!-- Phone number input field -->
-                <input type="text" class="form-control mb-3" id="phoneNumber" placeholder="Enter your phone number" required>
-
-                <!-- Loading spinner with message -->
-                <div class="text-center mb-3" id="loadingSpinner" style="display: none;">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <div class="mt-2">Waiting for payment...</div>
+    <div id="bookModal" class="modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Book Now</h5>
+                    <a href="#" class="close">&times;</a>
                 </div>
-
-                <!-- Payment received message -->
-                <div class="text-center mb-3" id="paymentReceivedMessage" style="display: none;">
-                    <div class="alert alert-success" role="alert">
-                        Payment received! Redirecting...
+                <div class="modal-body">
+                    <p>Please enter your phone number:</p>
+                    <input type="text" class="form-control mb-3" id="phoneNumber" placeholder="Enter your phone number" required>
+                    <div class="text-center mb-3" id="loadingSpinner" style="display: none;">
+                        <div class="spinner">
+                            <svg class="path" viewBox="0 0 64 64">
+                                <circle class="spinner" cx="32" cy="32" r="28" fill="none" stroke-width="4"></circle>
+                            </svg>
+                        </div>
+                        <div class="mt-2">Waiting for payment...</div>
                     </div>
+                    <div class="text-center mb-3" id="paymentReceivedMessage" style="display: none;">
+                        <div class="alert alert-success" role="alert">
+                            Payment received! Redirecting...
+                        </div>
+                    </div>
+                    <form id="bookingForm" method="post" action="process_booking.php">
+                        <input type="hidden" name="schedule_id" value="<?php echo $scheduleDetails['id']; ?>">
+                        <input type="hidden" name="seats" value="<?php echo $selectedSeats; ?>">
+                        <button type="button" class="btn btn-primary" onclick="showLoadingSpinner()">Confirm Booking</button>
+                    </form>
                 </div>
-
-                <!-- Booking form -->
-                <form id="bookingForm" method="post" action="process_booking.php">
-                    <input type="hidden" name="schedule_id" value="<?php echo $scheduleDetails['id']; ?>">
-                    <input type="hidden" name="seats" value="<?php echo $selectedSeats; ?>">
-                    <button type="button" class="btn btn-primary" onclick="showLoadingSpinner()">Confirm Booking</button>
-                </form>
             </div>
         </div>
     </div>
-</div>
-<script>
 
-</script>
+    <script>
+        function showModal() {
+            document.getElementById('bookModal').style.display = 'block';
+        }
+
+        document.querySelectorAll('.close').forEach(function(el) {
+            el.onclick = function() {
+                document.getElementById('bookModal').style.display = 'none';
+            }
+        });
+
+        function showLoadingSpinner() {
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            if (!phoneNumber) {
+                alert("Please enter your phone number.");
+                return;
+            }
+            document.querySelector('#bookModal button[type="button"]').disabled = true;
+            document.getElementById('loadingSpinner').style.display = 'block';
+            document.getElementById('bookingForm').style.display = 'none';
+            setTimeout(() => {
+                document.getElementById('loadingSpinner').style.display = 'none';
+                document.getElementById('paymentReceivedMessage').style.display = 'block';
+                const phoneNumberInput = document.createElement('input');
+                phoneNumberInput.type = 'hidden';
+                phoneNumberInput.name = 'phone_number';
+                phoneNumberInput.value = phoneNumber;
+                document.getElementById('bookingForm').appendChild(phoneNumberInput);
+                setTimeout(() => {
+                    document.getElementById('bookingForm').submit();
+                }, 2000);
+            }, 5000);
+        }
+    </script>
+    </body>
+    </html>
+
+
+
 <?php
 // Get the buffered content and assign it to $content
 $pageContent = ob_get_clean();

@@ -28,12 +28,12 @@ if (!$schedulesResult) {
     die("Error fetching travel schedules: " . mysqli_error($conn));
 }
 ?>
-
-<div>
-    <h2>View All Travel Schedules</h2>
+<link rel="stylesheet" href="../static/user/schedules.css">
+<div class="container">
+    <h2 class="page-heading">View All Travel Schedules</h2>
 
     <?php if (mysqli_num_rows($schedulesResult) > 0) : ?>
-        <table>
+        <table class="schedule-table">
             <thead>
             <tr>
                 <th>Departure Location</th>
@@ -60,9 +60,9 @@ if (!$schedulesResult) {
                     <td><?php echo $schedule['remaining_seats']; ?></td>
                     <td>
                         <?php if ($schedule['remaining_seats'] > 0) : ?>
-                            <a href="booking_details.php?schedule_id=<?php echo $schedule['id']; ?>">Book Now</a>
+                            <a href="booking_details.php?schedule_id=<?php echo $schedule['id']; ?>" class="btn btn-book">Book Now</a>
                         <?php else : ?>
-                            <span>Schedule Full</span>
+                            <span class="schedule-full">Schedule Full</span>
                         <?php endif; ?>
                     </td>
                 </tr>

@@ -1,0 +1,53 @@
+/* schedules.css */
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.page-heading {
+    margin-bottom: 20px;
+}
+
+.schedule-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.schedule-table th,
+.schedule-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+}
+
+.schedule-table th {
+    background-color: #f2f2f2;
+}
+
+/* schedules.css */
+
+.btn-book {
+    display: inline-block;
+    padding: 8px 16px;
+    background-color: #ffc107; /* Changed button color */
+    color: #000; /* Adjusted text color */
+    text-decoration: none;
+    border-radius: 4px;
+}
+
+.btn-book:hover {
+    background-color: #ffb400; /* Adjusted hover color */
+}
+
+
+.schedule-full {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+p.no-schedules {
+    font-style: italic;
+    color: #777;
+}
